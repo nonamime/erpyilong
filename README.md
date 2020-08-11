@@ -13,6 +13,29 @@
 - 数据字典
 - 单点登录
 
+## 产品展示
+
+![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/1.jpg "赤龙ERP")
+
+------------
+
+![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/2.jpg "赤龙ERP")
+
+------------
+
+![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/3.jpg "赤龙ERP")
+
+------------
+
+![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/4.jpg "赤龙ERP")
+
+------------
+
+![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/5.jpg "赤龙ERP")
+
+------------
+
+
 ## 技术与平台
 
 - SpringBoot2
@@ -29,5 +52,5 @@
 
 > 扫描二维码与开发者沟通交流
 
-![赤龙ERP交流群](https://gitee.com/redragon/redragon-erp/raw/master/redragon.png "赤龙ERP交流群")
+![赤龙ERP交流群](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/redragon.png "赤龙ERP交流群")
 

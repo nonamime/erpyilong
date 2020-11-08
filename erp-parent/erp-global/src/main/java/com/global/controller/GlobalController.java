@@ -1,19 +1,24 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.global.controller;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +26,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.erp.finance.pay.service.PayHeadService;
-import com.erp.finance.receipt.service.ReceiptHeadService;
+import com.erp.finance.ap.invoice.service.ApInvoiceHeadService;
+import com.erp.finance.ar.invoice.service.ArInvoiceHeadService;
 import com.erp.finance.voucher.service.FinVoucherHeadService;
 import com.erp.hr.dao.model.HrStaffInfoRO;
 import com.erp.hr.service.HrCommonService;
@@ -30,7 +35,10 @@ import com.erp.masterdata.customer.service.MdCustomerService;
 import com.erp.masterdata.vendor.service.MdVendorService;
 import com.erp.order.po.service.PoHeadService;
 import com.erp.order.so.service.SoHeadService;
+import com.framework.util.EhcacheUtil;
+import com.framework.util.JedisUtil;
 import com.framework.util.JsonResultUtil;
+import com.framework.util.RedisUtil;
 import com.framework.util.ShiroUtil;
 
 import redragon.basic.tools.TimeToolKit;
@@ -50,9 +58,9 @@ public class GlobalController {
     @Autowired
     private FinVoucherHeadService finVoucherHeadService;
     @Autowired
-    private PayHeadService payHeadService;
+    private ApInvoiceHeadService apInvoiceHeadService;
     @Autowired
-    private ReceiptHeadService receiptHeadService;
+    private ArInvoiceHeadService receiptHeadService;
     @Autowired
     private PoHeadService poHeadService;
     @Autowired
@@ -81,7 +89,7 @@ public class GlobalController {
     }
     
     @RequestMapping("web/main")
-    public String webMain(Model model) {
+    public String webMain(Model model, HttpSession session) {
         //获取当前用户职员信息
         HrStaffInfoRO staffInfo = this.hrCommonService.getStaffInfo(ShiroUtil.getUsername());
         
@@ -93,9 +101,9 @@ public class GlobalController {
         //获取销售订单数
         model.addAttribute("soHeadNum", this.soHeadService.getSoHeadNum(startDate, endDate));
         //获取付款单数
-        model.addAttribute("payHeadNum", this.payHeadService.getPayHeadNum(startDate, endDate));
+        model.addAttribute("payHeadNum", this.apInvoiceHeadService.getApInvoiceHeadNum(startDate, endDate));
         //获取收款单数
-        model.addAttribute("receiptHeadNum", this.receiptHeadService.getReceiptHeadNum(startDate, endDate));
+        model.addAttribute("receiptHeadNum", this.receiptHeadService.getArInvoiceHeadNum(startDate, endDate));
         //获取凭证数
         model.addAttribute("voucherHeadNum", this.finVoucherHeadService.getVoucherHeadNum(startDate, endDate));
         //获取客户数
@@ -105,6 +113,7 @@ public class GlobalController {
         
         //页面属性设置
         model.addAttribute("staffInfo", staffInfo);
+        session.setAttribute("staffInfo", staffInfo);
         
         return "basic.jsp?content=main";
     }
@@ -124,6 +133,24 @@ public class GlobalController {
         return "redirect: index";
     }
     
-    
+    @RequestMapping("web/main/clearCache")
+    @ResponseBody
+    public String clearCache() {
+        try{
+            //清除缓存ehcache、redis
+            EhcacheUtil.clearBatch("DATASET_*");
+            RedisUtil.clearBatch("DATASET_*");
+            
+            EhcacheUtil.clearBatch("MD_*");
+            RedisUtil.clearBatch("MD_*");
+            
+            EhcacheUtil.clearBatch("com.erp*");
+            RedisUtil.clearBatch("com.erp*");
+            
+            return JsonResultUtil.getErrorJson(0);
+        }catch(Exception e) {
+            return JsonResultUtil.getErrorJson(-1, "清除缓存失败");
+        }
+    }
     
 }

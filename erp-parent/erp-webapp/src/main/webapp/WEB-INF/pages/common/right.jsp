@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -21,10 +24,12 @@
 	<div class="sidebar-container">
 
 		<ul class="nav nav-tabs navs-3">
+			<%-- 
 			<li><a class="nav-link active" data-toggle="tab" href="#tab-1">
 					Notes </a></li>
 			<li><a class="nav-link" data-toggle="tab" href="#tab-2">
 					Projects </a></li>
+			--%>		
 			<li><a class="nav-link" data-toggle="tab" href="#tab-3"> <i
 					class="fa fa-gear"></i>配置
 			</a></li>
@@ -32,6 +37,7 @@
 
 		<div class="tab-content">
 
+			<%-- 
 
 			<div id="tab-1" class="tab-pane active">
 
@@ -266,116 +272,29 @@
 				</ul>
 
 			</div>
+			--%>
 
-			<div id="tab-3" class="tab-pane">
+			<div id="tab-3" class="tab-pane active">
 
 				<div class="sidebar-title">
 					<h3>
 						<i class="fa fa-gears"></i> Settings
 					</h3>
-					<small><i class="fa fa-tim"></i> You have 14 projects. 10
-						not completed.</small>
+					<small><i class="fa fa-tim"></i>全局配置，请谨慎操作！</small>
 				</div>
 
 				<div class="setings-item">
-					<span> Show notifications </span>
+					<span> 清除所有缓存 </span>
 					<div class="switch">
 						<div class="onoffswitch">
 							<input type="checkbox" name="collapsemenu"
-								class="onoffswitch-checkbox" id="example"> <label
-								class="onoffswitch-label" for="example"> <span
+								class="onoffswitch-checkbox" id="clearCacheButton"> <label
+								class="onoffswitch-label" for="clearCacheButton"> <span
 								class="onoffswitch-inner"></span> <span
 								class="onoffswitch-switch"></span>
 							</label>
 						</div>
 					</div>
-				</div>
-				<div class="setings-item">
-					<span> Disable Chat </span>
-					<div class="switch">
-						<div class="onoffswitch">
-							<input type="checkbox" name="collapsemenu" checked
-								class="onoffswitch-checkbox" id="example2"> <label
-								class="onoffswitch-label" for="example2"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="setings-item">
-					<span> Enable history </span>
-					<div class="switch">
-						<div class="onoffswitch">
-							<input type="checkbox" name="collapsemenu"
-								class="onoffswitch-checkbox" id="example3"> <label
-								class="onoffswitch-label" for="example3"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="setings-item">
-					<span> Show charts </span>
-					<div class="switch">
-						<div class="onoffswitch">
-							<input type="checkbox" name="collapsemenu"
-								class="onoffswitch-checkbox" id="example4"> <label
-								class="onoffswitch-label" for="example4"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="setings-item">
-					<span> Offline users </span>
-					<div class="switch">
-						<div class="onoffswitch">
-							<input type="checkbox" checked name="collapsemenu"
-								class="onoffswitch-checkbox" id="example5"> <label
-								class="onoffswitch-label" for="example5"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="setings-item">
-					<span> Global search </span>
-					<div class="switch">
-						<div class="onoffswitch">
-							<input type="checkbox" checked name="collapsemenu"
-								class="onoffswitch-checkbox" id="example6"> <label
-								class="onoffswitch-label" for="example6"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="setings-item">
-					<span> Update everyday </span>
-					<div class="switch">
-						<div class="onoffswitch">
-							<input type="checkbox" name="collapsemenu"
-								class="onoffswitch-checkbox" id="example7"> <label
-								class="onoffswitch-label" for="example7"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-
-				<div class="sidebar-content">
-					<h4>Settings</h4>
-					<div class="small">I belive that. Lorem Ipsum is simply dummy
-						text of the printing and typesetting industry. And typesetting
-						industry. Lorem Ipsum has been the industry's standard dummy text
-						ever since the 1500s. Over the years, sometimes by accident,
-						sometimes on purpose (injected humour and the like).</div>
 				</div>
 
 			</div>
@@ -384,3 +303,35 @@
 	</div>
 
 </div>
+
+<script>
+$(document).ready(function(){
+	//清除所有缓存
+	$("#clearCacheButton").change(function(){
+		$.ajax({
+			type: "post",
+			url: "web/main/clearCache",
+			data: {},
+			async: false,
+			dataType: "json",
+			cache: false,
+			success: function(data){
+				if(data.errCode==0){
+					redragonJS.alert("缓存清除成功");
+					setTimeout("resetClearCacheButton()", 1000);
+				}else{
+					redragonJS.alert(data.errMsg);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				redragonJS.alert(textStatus);
+			}
+		});
+	});
+});
+
+//重置清除缓存按钮效果
+function resetClearCacheButton(){
+	$("#clearCacheButton").prop("checked", false);
+}
+</script>

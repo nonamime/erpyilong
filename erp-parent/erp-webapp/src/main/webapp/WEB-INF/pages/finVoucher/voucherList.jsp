@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -58,7 +61,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 		                
 		                <button id="addButton" class="btn btn-success btn-sm" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span class="bold">手工凭证</span></button>
-		                <button id="searchButton" class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i>&nbsp;&nbsp;展开查询</button>
+		                <button id="searchButton" class="btn btn-default btn-sm btn-notcontrol" type="button"><i class="fa fa-search"></i>&nbsp;&nbsp;展开查询</button>
+		            
+		            	<div class="btn-group">
+							<button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    	<i class="fa fa-download"></i>&nbsp;&nbsp;报表下载 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+					    		<li><a href="web/voucherReport/getVoucherReportList?voucherStartDate=${param.voucherStartDate}&voucherEndDate=${param.voucherEndDate}">导出凭证数据</a></li>
+							</ul>
+						</div>
 		            </div>
 		        </div>
 				<div class="ibox-content border-bottom" style="padding-bottom: 0px;">
@@ -122,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</td>
 									<td>
 										<div class="btn-group">
-											<button class="btn-white btn btn-xs" onclick="editData(${data.voucherHeadId},'${data.voucherHeadCode}')"><i class="fa fa-edit"></i>&nbsp;编辑</button>&nbsp;
+											<button class="btn-white btn btn-xs btn-notcontrol" onclick="editData(${data.voucherHeadId},'${data.voucherHeadCode}')"><i class="fa fa-edit"></i>&nbsp;编辑</button>&nbsp;
 											
 											<c:if test="${data.approveStatus!='APPROVE'&&data.approveStatus!='SUBMIT'}">
 												<button class="btn-white btn btn-xs" onclick="deleteData(${data.voucherHeadId},'${data.voucherHeadCode}','${data.approveStatus}')"><i class="fa fa-trash"></i>&nbsp;删除</button>
@@ -202,8 +214,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			type: "post",
 			url: "web/finVoucherModelHead/getSelectBillModal",
 			data: {"businessType": businessType, 
-				   "payHeadCode": $("#payHeadCodeSearch").val(), "paySourceHeadCode": $("#paySourceHeadCodeSearch").val(), "receiver": $("#receiverSearch").val(),
-				   "receiptHeadCode": $("#receiptHeadCodeSearch").val(), "receiptSourceHeadCode": $("#receiptSourceHeadCodeSearch").val(), "payer": $("#payerSearch").val()},
+				   "payHeadCode": $("#payHeadCodeSearch").val(), "amount": $("#payAmountSearch").val(), "vendorCode": $("#vendorCodeSearch").val(), "payDate": $("#payDateSearch").val(),
+				   "receiptHeadCode": $("#receiptHeadCodeSearch").val(), "amount": $("#receiptAmountSearch").val(), "customerCode": $("#customerCodeSearch").val(), "receiptDate": $("#receiptDateSearch").val()},
 			async: false,
 			dataType: "html",
 			cache: false,

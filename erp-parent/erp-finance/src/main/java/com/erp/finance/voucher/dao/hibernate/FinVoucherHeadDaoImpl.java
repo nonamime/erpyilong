@@ -1,23 +1,28 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.finance.voucher.dao.hibernate;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -91,8 +96,14 @@ public class FinVoucherHeadDaoImpl implements FinVoucherHeadDao{
         Map<String, Object> args = new HashMap<String, Object>();
         sql = sql + DaoUtil.getSQLCondition(paramObj, "voucherType", "and v.", args);
         sql = sql + DaoUtil.getSQLCondition(paramObj, "voucherNumber", "and v.", args);
-        sql = sql + DaoUtil.getSQLCondition(paramObj, "voucherDate", "and v.", args);
         sql = sql + DaoUtil.getSQLCondition(paramObj, "status", "and v.", args);
+        sql = sql + DaoUtil.getSQLConditionForDateTime(paramObj, "voucherDate", "voucherStartDate", "voucherEndDate", "and v.", args);
+        
+        if(StringUtils.isNotBlank(paramObj.getBusinessType())) {
+            sql = sql + " and exists(select 1 from fin_voucher_bill_r where bill_type = :billtype and voucher_head_code = v.voucher_head_code) ";
+            args.put("billtype", paramObj.getBusinessType());
+        }
+        
         sql = sql + " order by v.voucher_head_id desc";
         
         Map<String, Class<?>> entity = new HashMap<String, Class<?>>();
@@ -107,9 +118,28 @@ public class FinVoucherHeadDaoImpl implements FinVoucherHeadDao{
     }
     
     @Override
-    @Permissions(PermissionType.OWN)
+    @Permissions(PermissionType.DATA_AUTH)
     public List<FinVoucherHead> getDataObjectsForDataAuth(@SqlParam String dataAuthSQL, Pages pages, FinVoucherHeadCO paramObj) {
-        return null;
+        String sql = "select v.* from fin_voucher_head v where 1=1";
+        
+        Map<String, Object> args = new HashMap<String, Object>();
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "voucherType", "and v.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "voucherNumber", "and v.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "status", "and v.", args);
+        sql = sql + DaoUtil.getSQLConditionForDateTime(paramObj, "voucherDate", "voucherStartDate", "voucherEndDate", "and v.", args);
+        sql = sql + DaoUtil.getDataAuthSQL(dataAuthSQL, "v.", "v.");
+        
+        if(StringUtils.isNotBlank(paramObj.getBusinessType())) {
+            sql = sql + " and exists(select 1 from fin_voucher_bill_r where bill_type = :billtype and voucher_head_code = v.voucher_head_code) ";
+            args.put("billtype", paramObj.getBusinessType());
+        }
+        
+        sql = sql + " order by v.voucher_head_id desc";
+        
+        Map<String, Class<?>> entity = new HashMap<String, Class<?>>();
+        entity.put("v", FinVoucherHead.class);
+        
+        return this.daoSupport.getDataSqlByPage(sql, entity, args, pages);
     }
     
     @Override
@@ -148,6 +178,27 @@ public class FinVoucherHeadDaoImpl implements FinVoucherHeadDao{
         }
         
         return 0;
+    }
+    
+    @Override
+    public FinVoucherHead getVoucherHead(String billType, String billHeadCode) {
+        String sql = "select h.* from fin_voucher_head h,fin_voucher_bill_r b "
+                   + "where h.voucher_head_code = b.voucher_head_code "
+                   + "and b.bill_type = :billType and b.bill_head_code = :billHeadCode";
+        
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("billType", billType);
+        args.put("billHeadCode", billHeadCode);
+        
+        Map<String, Class<?>> entity = new HashMap<String, Class<?>>();
+        entity.put("h", FinVoucherHead.class);
+        
+        List<FinVoucherHead> list = this.daoSupport.selectDataSql(sql, entity, args);
+        if(list!=null&&list.size()>0) {
+            return list.get(0);
+        }
+        
+        return null;
     }
     
 }

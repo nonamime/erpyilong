@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -27,20 +30,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%-- 导入面包屑 --%>
 <jsp:include page="../common/nav.jsp"></jsp:include>
 
+<form id="editForm" method="post" action="web/finVoucherHead/editFinVoucherHead">
 <div class="wrapper wrapper-content animated fadeInRight">
 
 	<%-- 导入提示信息框 --%>
-	<c:if test="${requestScope.hints!=null&&requestScope.hints!=''}">
-		<jsp:include page="../common/alert/alert.jsp">
-			<jsp:param value="hint" name="alertType" />
-			<jsp:param value="${fn:replace(requestScope.hints,';', '<br/>')}"
-				name="alertMessage" />
-		</jsp:include>
-	</c:if>
-
+    <c:if test="${hint!=null&&hint!=''}">
+   		<jsp:include page="../common/alert/alert.jsp">
+   			<jsp:param value="${hint}" name="alertType"/>
+   			<jsp:param value="${alertMessage}" name="alertMessage"/>
+   		</jsp:include>
+    </c:if>
 
 	<div class="row">
-		<form id="editForm" method="post" action="web/finVoucherHead/editFinVoucherHead">
 		<div class="col-lg-12">
 			<div class="ibox ">
 				<div class="ibox-title" style="text-align: left;">
@@ -66,8 +67,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<button id="submitApproveButton" type="button" class="btn btn-primary btn-lg">凭证提交</button>
 						</c:if>			
 						<c:if test="${requestScope.finVoucherHead.approveStatus=='SUBMIT' }">
-							<button id="approveButton" type="button" class="btn btn-warning btn-lg">凭证审核</button>
-							<button id="rejectApproveButton" type="button" class="btn btn-danger btn-lg">凭证驳回</button>
+							<button id="approveButton" type="button" class="btn btn-warning btn-lg btn-redragon-approve">凭证审核</button>
+							<button id="rejectApproveButton" type="button" class="btn btn-danger btn-lg btn-redragon-approve">凭证驳回</button>
 						</c:if>
 						<c:if test="${requestScope.finVoucherHead.approveStatus=='APPROVE'&&requestScope.finVoucherHead.status!='N' }">
 							<button id="cancelButton" type="button" class="btn btn-danger btn-lg">凭证作废</button>
@@ -97,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        		<option value="${voucherType.key}">${voucherType.value}</option>
 		                        	</c:forEach>
 								</select>&nbsp; 
-								<input id="voucherNumber" name="voucherNumber" type="text" class="form-control" value="${requestScope.finVoucherHead.voucherNumber}" style="display: inline; width: 100px; vertical-align: middle;" placeholder="输入凭证号">
+								<input id="voucherNumber" name="voucherNumber" type="text" class="form-control" value="${requestScope.finVoucherHead.voucherNumber}" style="display: inline; width: 130px; vertical-align: middle;" placeholder="自动生成凭证号">
 							</label> 
 							
 							<label class="col-sm-4 col-form-label">
@@ -285,10 +286,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="hidden" name="departmentCode" value="${requestScope.finVoucherHead.departmentCode}">
 			<input type="hidden" name="createdDate" value="${requestScope.finVoucherHead.createdDate}">
 			<input type="hidden" name="createdBy" value="${requestScope.finVoucherHead.createdBy}">
-		</form>
+		
 	</div>
 </div>
-
+</form>
 
 <jsp:include page="pop/subjectTreeModal.jsp"></jsp:include>
 
@@ -300,9 +301,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#voucherType").val("${requestScope.finVoucherHead.voucherType}");
 		}
 		//初始化code只读
-		if("${requestScope.finVoucherHead.voucherNumber}"!=""){
-			$("#voucherNumber").prop("readonly", true);
-		}
+		//if("${requestScope.finVoucherHead.voucherNumber}"!=""){
+		$("#voucherNumber").prop("readonly", true);
+		//}
 		
 		//设置日期插件
 		$('#voucherDate').datepicker({
@@ -519,9 +520,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				voucherType : {
 					required : true,
 				},
-				voucherNumber : {
-					required : true,
-				},
 				voucherDate : {
 					required : true,
 				},
@@ -529,6 +527,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					required : true,
 				},
 				/*
+				voucherNumber : {
+					required : true,
+				},
 				memo : {
 					required : true,
 				},

@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -43,10 +46,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="col-lg-12">
 			<div class="ibox ">
 		        <div class="ibox-title">
-		            <h4>物料与事项列表</h4>
+		            <h4>物料与服务列表</h4>
 		            <div class="ibox-tools">
-		                <button id="addButton" class="btn btn-success btn-sm" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span class="bold">新增物料/事项</span></button>
-		                <button id="searchButton" class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i>&nbsp;&nbsp;展开查询</button>
+		                <button id="addButton" class="btn btn-success btn-sm" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span class="bold">新增物料/服务</span></button>
+		                <button id="searchButton" class="btn btn-default btn-sm btn-notcontrol" type="button"><i class="fa fa-search"></i>&nbsp;&nbsp;展开查询</button>
 		            </div>
 		        </div>
 				<div class="ibox-content border-bottom" style="padding-bottom: 0px;">
@@ -58,10 +61,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<th></th>
 									--%>
 									<th width="5%">序号</th>
-									<th>物料/事项</th>
-									<th>物料/事项编码</th>
-									<th>物料/事项名称</th>
-									<th>物料/事项类别</th>
+									<th>物料/服务</th>
+									<th>物料/服务编码</th>
+									<th>物料/服务名称</th>
+									<th>物料/服务类别</th>
 									<th>物料单位</th>
 									<th>物料规格</th>
 									<th>规格单位</th>
@@ -114,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</td>
 									<td>
 										<div class="btn-group">
-											<button class="btn-white btn btn-xs" onclick="editData(${data.materialId})"><i class="fa fa-edit"></i>&nbsp;编辑</button>&nbsp;
+											<button class="btn-white btn btn-xs btn-notcontrol" onclick="editData(${data.materialId})"><i class="fa fa-edit"></i>&nbsp;编辑</button>&nbsp;
 											<c:if test="${data.approveStatus!='APPROVE'&&data.approveStatus!='SUBMIT'}">
 												<button class="btn-white btn btn-xs" onclick="deleteData(${data.materialId})"><i class="fa fa-trash"></i>&nbsp;删除</button>
 											</c:if>

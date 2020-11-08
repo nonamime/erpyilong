@@ -1,26 +1,31 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.finance.voucher.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -30,30 +35,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.framework.controller.ControllerSupport;
-import com.framework.dao.model.Pages;
-import com.framework.util.JsonResultUtil;
-import com.framework.util.JsonUtil;
-import com.framework.util.ShiroUtil;
-import com.springboot.dao.data.GlobalDataBox;
-
-import redragon.basic.tools.TimeToolKit;
-import redragon.frame.hibernate.SnowFlake;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erp.dataset.service.DatasetCommonService;
-import com.erp.finance.pay.dao.model.PayHead;
-import com.erp.finance.pay.dao.model.PayHeadCO;
-import com.erp.finance.pay.service.PayHeadService;
-import com.erp.finance.pay.service.PayLineService;
-import com.erp.finance.receipt.dao.model.ReceiptHead;
-import com.erp.finance.receipt.dao.model.ReceiptHeadCO;
-import com.erp.finance.receipt.service.ReceiptHeadService;
-import com.erp.finance.receipt.service.ReceiptLineService;
+import com.erp.finance.ap.invoice.dao.model.ApInvoiceHead;
+import com.erp.finance.ap.invoice.dao.model.ApInvoiceHeadCO;
+import com.erp.finance.ap.invoice.service.ApInvoiceHeadService;
+import com.erp.finance.ap.invoice.service.ApInvoiceLineService;
+import com.erp.finance.ap.pay.dao.model.ApPayHead;
+import com.erp.finance.ap.pay.dao.model.ApPayHeadCO;
+import com.erp.finance.ap.pay.service.ApPayHeadService;
+import com.erp.finance.ap.pay.service.ApPayLineService;
+import com.erp.finance.ar.invoice.dao.model.ArInvoiceHead;
+import com.erp.finance.ar.invoice.dao.model.ArInvoiceHeadCO;
+import com.erp.finance.ar.invoice.service.ArInvoiceHeadService;
+import com.erp.finance.ar.invoice.service.ArInvoiceLineService;
+import com.erp.finance.ar.receipt.dao.model.ArReceiptHead;
+import com.erp.finance.ar.receipt.dao.model.ArReceiptHeadCO;
+import com.erp.finance.ar.receipt.service.ArReceiptHeadService;
+import com.erp.finance.ar.receipt.service.ArReceiptLineService;
 import com.erp.finance.voucher.dao.data.DataBox;
 import com.erp.finance.voucher.dao.model.FinVoucherHead;
 import com.erp.finance.voucher.dao.model.FinVoucherLine;
@@ -64,11 +67,18 @@ import com.erp.finance.voucher.service.FinVoucherHeadService;
 import com.erp.finance.voucher.service.FinVoucherLineService;
 import com.erp.finance.voucher.service.FinVoucherModelHeadService;
 import com.erp.finance.voucher.service.FinVoucherModelLineService;
+import com.erp.finance.voucher.util.FinVoucherUtil;
 import com.erp.hr.dao.model.HrStaffInfoRO;
 import com.erp.hr.service.HrCommonService;
 import com.erp.masterdata.common.service.MasterDataCommonService;
-import com.erp.order.po.dao.model.PoHead;
-import com.erp.order.po.dao.model.PoHeadCO;
+import com.framework.controller.ControllerSupport;
+import com.framework.dao.data.GlobalDataBox;
+import com.framework.dao.model.Pages;
+import com.framework.util.JsonResultUtil;
+import com.framework.util.JsonUtil;
+import com.framework.util.ShiroUtil;
+
+import redragon.frame.hibernate.SnowFlake;
 
 @Controller
 @RequestMapping("/web/finVoucherModelHead")
@@ -89,13 +99,17 @@ public class FinVoucherModelHeadWebController extends ControllerSupport{
     @Autowired
     private MasterDataCommonService masterDataCommonService;
     @Autowired
-    private PayHeadService payHeadService;
+    private ApPayHeadService payHeadService;
     @Autowired
-    private PayLineService payLineService;
+    private ApPayLineService payLineService;
     @Autowired
-    private ReceiptHeadService receiptHeadService;
+    private ArReceiptHeadService receiptHeadService;
     @Autowired
-    private ReceiptLineService receiptLineService;
+    private ArReceiptLineService receiptLineService;
+    @Autowired
+    private FinVoucherHeadService finVoucherHeadService;
+    @Autowired
+    private FinVoucherLineService finVoucherLineService;
     
     @Override
     public String getExceptionRedirectURL() {
@@ -230,7 +244,7 @@ public class FinVoucherModelHeadWebController extends ControllerSupport{
      *
      */
     @RequestMapping("getSelectBillModal")
-    public String getSelectBillModal(String businessType, Pages pages, PayHeadCO poHeadCO, ReceiptHeadCO receiptHeadCO, Model model) {
+    public String getSelectBillModal(String businessType, Pages pages, ApPayHeadCO payHeadCO, ArReceiptHeadCO receiptHeadCO, Model model) {
         //分页查询数据
         if(pages.getPage()==0) {
             pages.setPage(1);
@@ -238,59 +252,51 @@ public class FinVoucherModelHeadWebController extends ControllerSupport{
         
         if(businessType.equals("PAY")) {
             //分页查询数据
-            List<PayHead> payHeadList = this.payHeadService.getPayHeadListForNotCreateVoucher(pages, poHeadCO);
+            List<ApPayHead> payHeadList = this.payHeadService.getApPayHeadListForNotCreateVoucher(pages, payHeadCO);
             //循环获取金额
             //循环设置职员和组织信息
-            for(PayHead payHead: payHeadList) {
-                payHead.setAmount(this.payLineService.getPayAmountByPayHeadCode(payHead.getPayHeadCode()).doubleValue());
+            for(ApPayHead payHead: payHeadList) {
                 payHead.setStaffName(this.hrCommonService.getHrStaff(payHead.getStaffCode()).getStaffName());
                 payHead.setDepartmentName(this.hrCommonService.getHrDepartment(payHead.getDepartmentCode()).getDepartmentName());
             }
             
-            //付款来源类型
-            Map paySourceTypeMap = com.erp.finance.pay.dao.data.DataBox.getPaySourceType();
+            //付款类型
+            Map payTypeMap = com.erp.finance.ap.pay.dao.data.DataBox.getApPayType();
             //状态
-            Map payStatusMap = com.erp.finance.pay.dao.data.DataBox.getPayStatusMap();
-            //获取出纳状态
-            Map paidStatusMap = com.erp.finance.pay.dao.data.DataBox.getPaidStatusMap();
+            Map payStatusMap = GlobalDataBox.getStatusMap();
             //获取供应商
             Map vendorMap = this.masterDataCommonService.getVendorMap();
             
             //页面属性设置
             model.addAttribute("payHeadList", payHeadList);
             model.addAttribute("pages", pages);
-            model.addAttribute("paySourceTypeMap", paySourceTypeMap);
+            model.addAttribute("payTypeMap", payTypeMap);
             model.addAttribute("payStatusMap", payStatusMap);
-            model.addAttribute("paidStatusMap", paidStatusMap);
             model.addAttribute("vendorMap", vendorMap);
             
             return "finVoucher/pop/selectPayBillModal";
         }else if(businessType.equals("RECEIPT")) {
           //分页查询数据
-            List<ReceiptHead> receiptHeadList = this.receiptHeadService.getReceiptHeadListForNotCreateVoucher(pages, receiptHeadCO);
+            List<ArReceiptHead> receiptHeadList = this.receiptHeadService.getArReceiptHeadListForNotCreateVoucher(pages, receiptHeadCO);
             //循环获取金额
             //循环设置职员和组织信息
-            for(ReceiptHead receiptHead: receiptHeadList) {
-                receiptHead.setAmount(this.receiptLineService.getReceiptAmountByReceiptHeadCode(receiptHead.getReceiptHeadCode()).doubleValue());
+            for(ArReceiptHead receiptHead: receiptHeadList) {
                 receiptHead.setStaffName(this.hrCommonService.getHrStaff(receiptHead.getStaffCode()).getStaffName());
                 receiptHead.setDepartmentName(this.hrCommonService.getHrDepartment(receiptHead.getDepartmentCode()).getDepartmentName());
             }
             
             //收款来源类型
-            Map receiptSourceTypeMap = com.erp.finance.receipt.dao.data.DataBox.getReceiptSourceType();
+            Map receiptTypeMap = com.erp.finance.ar.receipt.dao.data.DataBox.getArReceiptType();
             //状态
-            Map receiptStatusMap = com.erp.finance.receipt.dao.data.DataBox.getReceiptStatusMap();
-            //获取出纳状态
-            Map receivedStatusMap = com.erp.finance.receipt.dao.data.DataBox.getReceivedStatusMap();
+            Map receiptStatusMap = GlobalDataBox.getStatusMap();
             //获取客户
             Map customerMap = this.masterDataCommonService.getCustomerMap();
             
             //页面属性设置
             model.addAttribute("receiptHeadList", receiptHeadList);
             model.addAttribute("pages", pages);
-            model.addAttribute("receiptSourceTypeMap", receiptSourceTypeMap);
+            model.addAttribute("receiptTypeMap", receiptTypeMap);
             model.addAttribute("receiptStatusMap", receiptStatusMap);
-            model.addAttribute("receivedStatusMap", receivedStatusMap);
             model.addAttribute("customerMap", customerMap);
             
             return "finVoucher/pop/selectReceiptBillModal";
@@ -370,7 +376,6 @@ public class FinVoucherModelHeadWebController extends ControllerSupport{
         if(finVoucherModelHead!=null&&finVoucherModelHead.getVoucherHeadId()!=null&&StringUtils.isNotBlank(finVoucherModelHead.getVoucherHeadCode())) {
             //删除数据
             this.finVoucherModelHeadService.deleteDataObject(finVoucherModelHead);
-            this.finVoucherModelLineService.deleteFinVoucherModelLineByVoucherHeadCode(finVoucherModelHead.getVoucherHeadCode());
             
             //提示信息
             attr.addFlashAttribute("hint", "success");
@@ -443,5 +448,98 @@ public class FinVoucherModelHeadWebController extends ControllerSupport{
         }else {
             return JsonResultUtil.getErrorJson(-1, "付款单参数传递错误");
         }
+    }
+    
+    
+    
+    /**
+     * 
+     * @description 跳转凭证字的流水号页面
+     * @date 2020-07-04 18:25:32
+     * @author 
+     * @param hrPosition
+     * @param model
+     * @return String
+     *
+     */
+    @RequestMapping("getVoucherTypeNumber")
+    public String getVoucherTypeNumber(Model model) {
+        //获取凭证类型
+        Map<String, String> voucherTypeMap = this.datasetCommonService.getVoucherType();
+        
+        //循环凭证类型，获取对应的流水号
+        Map<String, String> voucherNumberMap = new HashMap<String, String>();
+        Set<Entry<String, String>> voucherTypeSet = voucherTypeMap.entrySet();
+        for(Entry<String, String> temp: voucherTypeSet) {
+            voucherNumberMap.put(temp.getKey(), FinVoucherUtil.getVoucherNumberCache(temp.getKey()).toString());
+        }
+        
+        //页面属性设置
+        model.addAttribute("voucherTypeMap", voucherTypeMap);
+        model.addAttribute("voucherNumberMap", voucherNumberMap);
+        
+        return "basic.jsp?content=finVoucher/voucherTypeNumberEdit";
+    }
+    
+    /**
+     * 
+     * @description 编辑凭证字的流水号
+     * @date 2020-07-04 18:25:32
+     * @author 
+     * @param hrPosition
+     * @param model
+     * @return String
+     *
+     */
+    @RequestMapping("editVoucherTypeNumber")
+    public String editVoucherTypeNumber(String voucherType, Long voucherNumber, Model model) {
+        //重置凭证初始流水号
+        if(StringUtils.isNotBlank(voucherType)) {
+            FinVoucherUtil.setVoucherNumberCache(voucherType, voucherNumber);
+        }
+        
+        return "redirect:getVoucherTypeNumber";
+    }
+    
+    
+    
+    /**
+     * 
+     * @description 获取财务分录Modal
+     * @date 2020年9月23日
+     * @author dongbin
+     * @param billType
+     * @param billHeadCode
+     * @param model
+     * @return
+     * @return String
+     *
+     */
+    @RequestMapping("getVoucherEntryModal")
+    public String getVoucherEntryModal(String billType, String billHeadCode, Model model) {
+        Double drAmount = 0D;
+        Double crAmount = 0D;
+        //获取分录头
+        FinVoucherHead finVoucherHead = this.finVoucherHeadService.getVoucherHead(billType, billHeadCode);
+        //获取分录行
+        List<FinVoucherLine> finVoucherLineList = this.finVoucherLineService.getVoucherLineList(billType, billHeadCode);
+        for(FinVoucherLine line: finVoucherLineList) {
+            drAmount = drAmount + line.getDrAmount();
+            crAmount = crAmount + line.getCrAmount();
+            //设置科目
+            line.setSubjectDesc(this.masterDataCommonService.getSubjectMap().get(line.getSubjectCode()));
+        }
+        //设置头金额
+        finVoucherHead.setDrAmount(drAmount);
+        finVoucherHead.setCrAmount(crAmount);
+        finVoucherHead.setAmount(new BigDecimal(drAmount));
+        
+        
+        //页面属性设置
+        model.addAttribute("finVoucherHead", finVoucherHead);
+        model.addAttribute("finVoucherLineList", finVoucherLineList);
+        
+        return "finVoucher/pop/voucherEntryModal";
+        
     }
 }

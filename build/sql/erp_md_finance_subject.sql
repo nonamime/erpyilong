@@ -43,7 +43,7 @@ CREATE TABLE `md_finance_subject` (
   UNIQUE KEY `subject_name_UNIQUE` (`subject_name`),
   UNIQUE KEY `segment_code_UNIQUE` (`segment_code`),
   UNIQUE KEY `segment_desc_UNIQUE` (`segment_desc`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='主数据财务科目表';
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='主数据财务科目表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +55,4 @@ CREATE TABLE `md_finance_subject` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-10 13:53:11
+-- Dump completed on 2020-10-09 10:57:11

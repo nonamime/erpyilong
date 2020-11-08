@@ -1,17 +1,20 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.finance.voucher.dao.hibernate;
 
@@ -30,6 +33,7 @@ import com.framework.dao.DaoSupport;
 import com.framework.dao.model.Pages;
 import com.framework.util.DaoUtil;
 import com.erp.finance.voucher.dao.FinVoucherLineDao;
+import com.erp.finance.voucher.dao.model.FinVoucherHead;
 import com.erp.finance.voucher.dao.model.FinVoucherLine;
 import com.erp.finance.voucher.dao.model.FinVoucherLineCO;
 
@@ -137,6 +141,24 @@ public class FinVoucherLineDaoImpl implements FinVoucherLineDao{
         }
         
         return new BigDecimal(0D);
+    }
+    
+    @Override
+    public List<FinVoucherLine> getVoucherLineList(String billType, String billHeadCode) {
+        String sql = "select l.* from fin_voucher_line l,fin_voucher_bill_r b "
+                + "where l.voucher_head_code = b.voucher_head_code "
+                + "and b.bill_type = :billType and b.bill_head_code = :billHeadCode";
+     
+         Map<String, Object> args = new HashMap<String, Object>();
+         args.put("billType", billType);
+         args.put("billHeadCode", billHeadCode);
+         
+         Map<String, Class<?>> entity = new HashMap<String, Class<?>>();
+         entity.put("l", FinVoucherLine.class);
+         
+         List<FinVoucherLine> list = this.daoSupport.selectDataSql(sql, entity, args);
+         
+         return list;
     }
     
 }

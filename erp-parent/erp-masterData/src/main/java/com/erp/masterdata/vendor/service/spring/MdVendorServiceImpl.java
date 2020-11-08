@@ -1,17 +1,20 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.masterdata.vendor.service.spring;
 
@@ -45,40 +48,28 @@ public class MdVendorServiceImpl implements MdVendorService {
     public void insertDataObject(MdVendor obj) {
         this.mdVendorDao.insertDataObject(obj);
         //清除缓存
-        EhcacheUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        EhcacheUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
+        this.clearCache();
     }
 
     @Override
     public void updateDataObject(MdVendor obj) {
         this.mdVendorDao.updateDataObject(obj);
         //清除缓存
-        EhcacheUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        EhcacheUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
+        this.clearCache();
     }
     
     @Override
     public void insertOrUpdateDataObject(MdVendor obj) {
         this.mdVendorDao.insertOrUpdateDataObject(obj);
         //清除缓存
-        EhcacheUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        EhcacheUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
+        this.clearCache();
     }
 
     @Override
     public void deleteDataObject(MdVendor obj) {
         this.mdVendorDao.deleteDataObject(obj);
         //清除缓存
-        EhcacheUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
-        EhcacheUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
-        RedisUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
+        this.clearCache();
     }
 
     @Override
@@ -129,12 +120,24 @@ public class MdVendorServiceImpl implements MdVendorService {
     @Override
     public void updateApproveStatus(String code, String approveStatus) {
         this.mdVendorDao.updateApproveStatus(code, approveStatus);
+        //清除缓存
+        this.clearCache();
     }
     
     @Override
     @Cache(cacheType=CacheType.ALL, cacheSeconds=7200)
     public int getVendorNum() {
         return this.mdVendorDao.getVendorNum();
+    }
+    
+    //清除缓存
+    private void clearCache() {
+        EhcacheUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
+        RedisUtil.clear(MasterDataParam.VENDOR_CACHE_KEY);
+        EhcacheUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
+        RedisUtil.clear(MasterDataParam.VENDOR_OWN_CACHE_KEY);
+        EhcacheUtil.clearBatch("*getMdVendorInfoCache*");
+        RedisUtil.clearBatch("*getMdVendorInfoCache*");
     }
     
 }

@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -30,14 +33,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="wrapper wrapper-content animated fadeInRight">
 
 	<%-- 导入提示信息框 --%>
-	<c:if test="${requestScope.hints!=null&&requestScope.hints!=''}">
-		<jsp:include page="../common/alert/alert.jsp">
-			<jsp:param value="hint" name="alertType" />
-			<jsp:param value="${fn:replace(requestScope.hints,';', '<br/>')}"
-				name="alertMessage" />
-		</jsp:include>
-	</c:if>
-
+    <c:if test="${hint!=null&&hint!=''}">
+   		<jsp:include page="../common/alert/alert.jsp">
+   			<jsp:param value="${hint}" name="alertType"/>
+   			<jsp:param value="${alertMessage}" name="alertMessage"/>
+   		</jsp:include>
+    </c:if>
 
 	<div class="row">
 		<form id="editForm" method="post" action="web/finVoucherModelHead/editFinVoucherModelHead">
@@ -548,6 +549,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					sumitFlag = "N";
 					redragonJS.alert("凭证行必须超过两行");
 					return false;
+				}
+				
+				//判断借方、贷方金额的填写方式
+				var drFlag = "N";
+				var crFlag = "N";
+				$(".dataTr").each(function(){
+					var drAmountSelectVal = $(this).find("td .drAmountSelect").val();
+					var crAmountSelectVal = $(this).find("td .crAmountSelect").val();
+					
+					if(drAmountSelectVal==crAmountSelectVal){
+						sumitFlag = "N";
+						redragonJS.alert("凭证行借方或贷方金额只能填写一个");
+						return false;
+					}
+					
+					if(drAmountSelectVal=="AMOUNT"){
+						drFlag = "Y";
+					}
+					if(crAmountSelectVal=="AMOUNT"){
+						crFlag = "Y";
+					}
+				});
+				
+				if(sumitFlag=="Y"){
+					if(drFlag=="N"||crFlag=="N"){
+						sumitFlag = "N";
+						redragonJS.alert("借方和贷方金额至少填写一个");
+						return false;
+					}
 				}
 				
 				/*

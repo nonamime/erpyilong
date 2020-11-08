@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>redragon</groupId>
   <artifactId>erp-parent</artifactId>
-  <version>1.0</version>
+  <version>0.9</version>
   <packaging>pom</packaging>
   
   <!-- 定义公共资源版本 -->
@@ -15,6 +15,7 @@
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <redragon.erp.version>0.9</redragon.erp.version>
   </properties>
   
   <dependencies>
@@ -185,24 +186,6 @@
     </dependency>
     
     <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi</artifactId>
-        <version>3.12</version>
-    </dependency>
-    
-    <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi-ooxml</artifactId>
-        <version>3.12</version>
-    </dependency>
-    
-    <dependency>
-        <groupId>org.apache.poi</groupId>
-        <artifactId>poi-ooxml-schemas</artifactId>
-        <version>3.12</version>
-    </dependency>
-    
-    <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
     </dependency>
@@ -237,7 +220,25 @@
 	    <groupId>org.aspectj</groupId>
 	    <artifactId>aspectjrt</artifactId>
 	</dependency>
-    
+	
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	    <version>4.1.2</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml</artifactId>
+	    <version>4.1.2</version>
+	</dependency>
+	
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml-schemas</artifactId>
+        <version>4.1.2</version>
+    </dependency>
+	
     <!--  
     <dependency>
         <groupId>redragon</groupId>
@@ -297,7 +298,7 @@
         <version>4.1.33.Final</version>
     </dependency>
     -->
-    
+
   </dependencies>
   
   <build>
@@ -337,5 +338,9 @@
     <module>erp-order</module>
     <module>erp-finance</module>
     <module>erp-global</module>
+    <module>erp-inv</module>
+    <module>erp-ledger</module>
+    <module>erp-common</module>
+    <module>erp-report</module>
   </modules>
 </project>

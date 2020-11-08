@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -30,14 +33,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="wrapper wrapper-content animated fadeInRight">
 
 	<%-- 导入提示信息框 --%>
-	<c:if test="${requestScope.hints!=null&&requestScope.hints!=''}">
-		<jsp:include page="../common/alert/alert.jsp">
-			<jsp:param value="hint" name="alertType"/>
-			<jsp:param value="${fn:replace(requestScope.hints,';', '<br/>')}" name="alertMessage"/>
-		</jsp:include>
-	</c:if>
-	
-	<%-- 导入提示信息框 --%>
     <c:if test="${hint!=null&&hint!=''}">
    		<jsp:include page="../common/alert/alert.jsp">
    			<jsp:param value="${hint}" name="alertType"/>
@@ -48,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="ibox ">
-				<div class="ibox-title btn-success btn-outline panel-success collapse-link" style="cursor: pointer;" title="展开/收起">
+				<div class="ibox-title btn-success btn-outline panel-success collapse-link" title="展开/收起">
 					<h5>销售订单头信息&nbsp;<span style="color: black;">（<i class="fa fa-tag"></i>${requestScope.approveStatusMap[requestScope.soHead.approveStatus]}）</span></h5>
 					<div class="ibox-tools">
 						<i class="fa fa-chevron-up"></i> 
@@ -243,11 +238,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<button id="submitApproveButton" class="btn btn-primary btn-lg" type="button">&nbsp;&nbsp;提交&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></button>&nbsp;
 									</c:if>
 									<c:if test="${requestScope.soHead.approveStatus=='SUBMIT' }">
-										<button class="btn btn-warning btn-lg" type="button" onclick="window.location.href='web/soHead/updateApproveStatus?code=${requestScope.soHead.soHeadCode}&approveStatus=APPROVE'">&nbsp;&nbsp;审核通过&nbsp;&nbsp;<i class="fa fa-check-circle"></i></button>&nbsp;
-										<button class="btn btn-danger btn-lg" type="button" onclick="window.location.href='web/soHead/updateApproveStatus?code=${requestScope.soHead.soHeadCode}&approveStatus=REJECT'">&nbsp;&nbsp;驳回&nbsp;&nbsp;<i class="fa fa-times-circle"></i></button>&nbsp;
+										<button class="btn btn-warning btn-lg btn-redragon-approve" type="button" onclick="approveData()">&nbsp;&nbsp;审核通过&nbsp;&nbsp;<i class="fa fa-check-circle"></i></button>&nbsp;
+										<button class="btn btn-danger btn-lg btn-redragon-approve" type="button" onclick="window.location.href='web/soHead/updateApproveStatus?code=${requestScope.soHead.soHeadCode}&approveStatus=REJECT'">&nbsp;&nbsp;驳回&nbsp;&nbsp;<i class="fa fa-times-circle"></i></button>&nbsp;
 									</c:if>
 									<c:if test="${requestScope.soHead.approveStatus=='APPROVE' }">
-										<button class="btn btn-success btn-lg" type="button" onclick="window.location.href='web/soHead/updateApproveStatus?code=${requestScope.soHead.soHeadCode}&approveStatus=UNSUBMIT'">&nbsp;&nbsp;变更&nbsp;&nbsp;<i class="fa fa-retweet"></i></button>&nbsp;
+										<button class="btn btn-success btn-lg" type="button" onclick="alterData()">&nbsp;&nbsp;变更&nbsp;&nbsp;<i class="fa fa-retweet"></i></button>&nbsp;
 									</c:if>
 								</c:if>
 							</div>
@@ -299,17 +294,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script>
 	$(document).ready(function() {
-	
-		//设置收起的title效果
-		$(".collapse-link").on("click", function(){
-			if($(this).find("h5").html().indexOf("</i>")==-1){
-				$(this).find("h5").append("<i class=\"fa fa-chrome fa-spin\"></i>");
-			}else{
-				$(this).find("h5").find("i").remove();
-			}
-			
-		});
-	
 		//初始化soType
 		if("${requestScope.soHead.soType}"!=""){
 			$("#soType").val("${requestScope.soHead.soType}");
@@ -378,6 +362,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					submitFlag = "N";
 					redragonJS.alert("预收款金额不能大于订单金额");
 				}
+			}
+			
+			if($("#lineTab tbody tr").length==0){
+				submitFlag = "N";
+				redragonJS.alert("至少新增一行后，才能提交数据");
 			}
 			
 			//提交
@@ -453,14 +442,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#tabDiv").html(data);
 					$("#lineTab").addClass("active");
 					//隐藏保存按钮
-					if("${param.soHeadCode}"!="null"&&"${param.soHeadCode}"!=""&&"${requestScope.soHead.approveStatus}"!="UNSUBMIT"&&"${requestScope.soHead.approveStatus}"!="REJECT"){
+					if(("${param.soHeadCode}"!="null"&&"${param.soHeadCode}"!=""&&"${requestScope.soHead.approveStatus}"!="UNSUBMIT"&&"${requestScope.soHead.approveStatus}"!="REJECT")||
+					   "${param.soHeadCode}"=="null"||"${param.soHeadCode}"==""){
 						$("#tabDiv .btn").hide();
 					}
+					initControlAuth();
 				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown){
 				redragonJS.alert(textStatus);
 			}
+		});
+	}
+	
+	//审批通过
+	function approveData(){
+		redragonJS.confirm("确认审批通过？", function(){
+			window.location.href='web/soHead/updateApproveStatus?code=${requestScope.soHead.soHeadCode}&approveStatus=APPROVE';
+		});
+	}
+	
+	//数据变更
+	function alterData(){
+		redragonJS.confirm("确认变更数据？数据变更后将产生变更历史信息！", function(){
+			window.location.href='web/soHead/updateApproveStatus?code=${requestScope.soHead.soHeadCode}&approveStatus=UNSUBMIT';
 		});
 	}
 </script>

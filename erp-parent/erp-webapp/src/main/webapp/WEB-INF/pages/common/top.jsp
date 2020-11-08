@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -24,6 +27,7 @@
 		<div class="navbar-header">
 			<a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
 				href="#"><i class="fa fa-bars"></i> </a>
+				
 			<%-- 
             <form role="search" class="navbar-form-custom" action="search_results.html">
                 <div class="form-group">
@@ -33,7 +37,12 @@
             --%>
 		</div>
 		<ul class="nav navbar-top-links navbar-right">
-			<li><span class="m-r-sm text-muted welcome-message">欢迎使用ERP系统</span>
+			<li>	
+			<a href='https://gitee.com/redragon/redragon-erp/stargazers' style="color: black;">点击星标，支持我们&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;<img src='https://gitee.com/redragon/redragon-erp/badge/star.svg?theme=dark' alt='star'></img></a>	
+			</li>
+		
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<li><span class="m-r-sm text-muted welcome-message">欢迎使用【赤龙ERP】V0.8.1版本</span>
 			</li>
 			
 			<%--bcc 暂时取消 站内信功能 
@@ -134,9 +143,9 @@
 
 			<li><a href="logout" class="text-muted"><i class="fa fa-sign-out"></i>退出</a></li>
 			
-			<%-- bbc 暂时取消 右侧弹出层 
+			<%-- bbc 暂时取消 右侧弹出层 --%>
 			<li><a class="right-sidebar-toggle"> <i class="fa fa-tasks"></i></a></li>
-			--%>
+			
 		</ul>
 
 	</nav>

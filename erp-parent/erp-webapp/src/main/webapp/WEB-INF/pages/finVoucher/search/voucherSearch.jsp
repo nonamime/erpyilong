@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -52,12 +55,35 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
-					<label class="control-label" for="voucherDate">凭证日期</label> 
+					<label class="control-label" for="voucherStartDate">凭证开始日期</label> 
 					<div class="input-group date">
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-						<input id="voucherDate" name="voucherDate" type="text" class="form-control"
-							value="${param.voucherDate}" autocomplete="off">
+						<input id="voucherStartDate" name="voucherStartDate" type="text" class="form-control"
+							value="${param.voucherStartDate}" autocomplete="off">
 					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label class="control-label" for="voucherEndDate">凭证结束日期</label> 
+					<div class="input-group date">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="voucherEndDate" name="voucherEndDate" type="text" class="form-control"
+							value="${param.voucherEndDate}" autocomplete="off">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label class="control-label" for="businessType">业务类型</label> 
+					<select id="businessType" name="businessType" class="form-control">
+						<option value="">请选择...</option>
+						<c:forEach items="${requestScope.voucherBusinessTypeMap}" var="voucherBusinessType">
+                       		<option value="${voucherBusinessType.key}">${voucherBusinessType.value}</option>
+                       	</c:forEach>
+					</select>
 				</div>
 			</div>
 			<div class="col-sm-6">
@@ -97,10 +123,23 @@ $(document).ready(function(){
 		$("#voucherType").val("${param.voucherType}");
 	}
 	
-	
+	if("${param.businessType}"!=""){
+		$("#businessType").val("${param.businessType}");
+	}
 	
 	//设置日期插件
-	$('#voucherDate').datepicker({
+	$('#voucherStartDate').datepicker({
+		todayBtn : "linked",
+		keyboardNavigation : true,
+		forceParse : true,
+		calendarWeeks : false,
+		autoclose : true,
+		format: 'yyyy-mm-dd',
+		language: 'zh-CN',
+	});
+	
+		//设置日期插件
+	$('#voucherEndDate').datepicker({
 		todayBtn : "linked",
 		keyboardNavigation : true,
 		forceParse : true,

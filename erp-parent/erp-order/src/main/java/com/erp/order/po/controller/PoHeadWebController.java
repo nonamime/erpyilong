@@ -1,17 +1,20 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.order.po.controller;
 
@@ -23,17 +26,20 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.framework.controller.ControllerSupport;
+import com.framework.dao.data.GlobalDataBox;
 import com.framework.dao.model.Pages;
 import com.framework.util.JsonResultUtil;
 import com.framework.util.JsonUtil;
 import com.framework.util.ShiroUtil;
-import com.springboot.dao.data.GlobalDataBox;
+import com.erp.common.ap.invoice.service.ApInvoiceHeadService;
+import com.erp.common.inv.input.service.InvInputHeadService;
 import com.erp.dataset.service.DatasetCommonService;
 import com.erp.hr.dao.model.HrStaffInfoRO;
 import com.erp.hr.service.HrCommonService;
@@ -62,6 +68,12 @@ public class PoHeadWebController extends ControllerSupport{
     private MasterDataCommonService masterDataCommonService;
     @Autowired
     private PoLineService poLineService;
+    @Autowired
+    @Qualifier("invInputHeadServiceCommon")
+    private InvInputHeadService invInputHeadService;
+    @Autowired
+    @Qualifier("apInvoiceHeadServiceCommon")
+    private ApInvoiceHeadService apInvoiceHeadService;
     
     @Override
     public String getExceptionRedirectURL() {
@@ -89,7 +101,7 @@ public class PoHeadWebController extends ControllerSupport{
         }
         
         //分页查询数据
-        List<PoHead> poHeadList = this.poHeadService.getDataObjects(pages, poHeadCO);
+        List<PoHead> poHeadList = this.poHeadService.getDataObjectsForDataAuth("", pages, poHeadCO);
         
         //采购订单类型
         Map poTypeMap = this.datasetCommonService.getPOType();
@@ -240,7 +252,6 @@ public class PoHeadWebController extends ControllerSupport{
             if(poHead.getStatus().equals("NEW")) {
                 //删除数据
                 this.poHeadService.deleteDataObject(poHead);
-                this.poLineService.deletetPoLineByPoHeadCode(poHead.getPoHeadCode());
                 
                 //提示信息
                 attr.addFlashAttribute("hint", "success");
@@ -273,9 +284,29 @@ public class PoHeadWebController extends ControllerSupport{
     public String updateApproveStatus(String code, String approveStatus, RedirectAttributes attr) {
         
         if(StringUtils.isNotBlank(code)&&StringUtils.isNotBlank(approveStatus)) {
+            if(approveStatus.equals("UNSUBMIT")) {
+                boolean inputFlag = this.invInputHeadService.isExistInvInputHeadRelatePO(code);
+                if(!inputFlag) {
+                    boolean invoiceFlag = this.apInvoiceHeadService.isExistApInvoiceRelatePO(code);
+                    if(invoiceFlag) {
+                        //提示信息
+                        attr.addFlashAttribute("hint", "hint");
+                        attr.addFlashAttribute("alertMessage", "当前采购订单已开票不能变更");
+                        attr.addAttribute("poHeadCode", code);
+                        return "redirect:getPoHead";
+                    }
+                }else {
+                    //提示信息
+                    attr.addFlashAttribute("hint", "hint");
+                    attr.addFlashAttribute("alertMessage", "当前采购订单已入库不能变更");
+                    attr.addAttribute("poHeadCode", code);
+                    return "redirect:getPoHead";
+                }
+            }
+            
             //更新审核状态
             this.poHeadService.updateApproveStatus(code, approveStatus);
-          //提示信息
+            //提示信息
             attr.addFlashAttribute("hint", "success");
             attr.addAttribute("poHeadCode", code);
         }else {

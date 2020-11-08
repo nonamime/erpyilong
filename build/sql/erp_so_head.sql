@@ -54,7 +54,7 @@ CREATE TABLE `so_head` (
   PRIMARY KEY (`so_head_id`),
   UNIQUE KEY `po_head_code_UNIQUE` (`so_head_code`),
   UNIQUE KEY `so_name_UNIQUE` (`so_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='销售订单头表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='销售订单头表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -66,4 +66,4 @@ CREATE TABLE `so_head` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-10 13:53:23
+-- Dump completed on 2020-10-09 10:57:33

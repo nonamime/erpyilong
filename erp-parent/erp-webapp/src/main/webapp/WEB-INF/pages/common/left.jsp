@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@page import="com.framework.util.ShiroUtil"%>
@@ -29,8 +32,8 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 				<div class="dropdown profile-element">
 					<img alt="image" class="rounded-circle" src="img/profile_small.jpg" />
 					<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)"> <span
-						class="block m-t-xs font-bold">${requestScope.staffInfo.staffName}</span> 
-						<span class="text-muted text-xs block">${requestScope.staffInfo.departmentName}&nbsp;&nbsp;${requestScope.staffInfo.positionName}
+						class="block m-t-xs font-bold">${staffInfo.staffName}</span> 
+						<span class="text-muted text-xs block">${staffInfo.departmentName}&nbsp;&nbsp;${staffInfo.positionName}
 						<%-- bbc 暂时取消账户快捷功能 
 						<b class="caret"></b>
 						--%>
@@ -50,18 +53,94 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 			
 			<%if(contentPage.equalsIgnoreCase("main")){ %>
 				<li class="active"><a href="index"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a></li>
+				<%-- 职员和组织信息获取失败提示 --%>
+				<script>
+				if("${staffInfo.staffName}"==""||"${staffInfo.departmentName}"==""){
+					redragonJS.alert("获取当前用户的职员和组织信息失败，业务操作可能会报错！请重新登陆或检查职员组织的关联是否正确！");
+				}
+				</script>
 			<%}else{ %>
 				<li><a href="index"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a></li>
 			<%} %>
 			
 			<%
-			//菜单权限判断
-			if(ShiroUtil.isPermittedAnyPerm("system_menu_auth")){
+			//获取菜单权限
+			ShiroUtil.isPermittedAnyPerm("admin");
+			String perms = ShiroUtil.getPerms().toString();
 			%>
+			<script>
+			var perms = "<%=perms%>";
+			
+			$(document).ready(function(){
+				$("li.menu").each(function(){
+					var menu = $(this);
+					var subMenuNum = 0;
+					$(menu).find("li").each(function(i){
+						var subMenu = $(this);
+						var url = $(subMenu).find("a").attr("href");
+						var urlArray = url.split("/");
+						//获取url中web后的第一段
+						var index=-1;
+						for(var a=0;a<urlArray.length;a++){
+							if(urlArray[a]=="web"){
+								index = a+1;
+								break;
+							}				
+						}
+						
+						//存在url请求第一段
+						if(index!=-1&&index<urlArray.length){
+							var menuKey = urlArray[index]+"_menu_auth";
+							if(perms.indexOf(menuKey)==-1){
+								$(subMenu).remove();
+							}else{
+								subMenuNum++;
+							}
+						}
+					});
+					
+					if(subMenuNum==0){
+						$(menu).remove();
+					}
+				});
+				
+				initControlAuth();
+			});
+			
+			function initControlAuth(){
+				var url = window.location.href;
+				var urlArray = url.split("/");
+				//获取url中web后的第一段
+				var index=-1;
+				for(var a=0;a<urlArray.length;a++){
+					if(urlArray[a]=="web"){
+						index = a+1;
+						break;
+					}				
+				}
+				
+				if(index!=-1&&index<urlArray.length){
+					if(urlArray[index]!="main"){
+						//判断操作按钮权限
+						var controlKey = urlArray[index]+"_control_auth";
+						if(perms.indexOf(controlKey)==-1){
+							$("#page-content .btn:not(.btn-notcontrol)").remove();
+						}
+						
+						//判断审批按钮权限
+						var approveKey = urlArray[index]+"_approve_control_auth";
+						if(perms.indexOf(approveKey)==-1){
+							$("#page-content .btn-redragon-approve").remove();
+						}
+					}
+				}
+			}
+			</script>
+			
 			<%if(contentPage.contains("sys")||contentPage.contains("roleAuthRelate")||contentPage.contains("userRoleRelate")){ %>
-				<li class="active"><a href="javascript:void(0)"><i class="fa fa-expeditedssl"></i> <span class="nav-label">用户与权限</span> <span class="fa arrow"></span></a>
+				<li class="active menu"><a href="javascript:void(0)"><i class="fa fa-expeditedssl"></i> <span class="nav-label">用户与权限</span> <span class="fa arrow"></span></a>
 			<%}else{ %>
-				<li><a href="javascript:void(0)"><i class="fa fa-expeditedssl"></i> <span class="nav-label">用户与权限</span> <span class="fa arrow"></span></a>
+				<li class="menu"><a href="javascript:void(0)"><i class="fa fa-expeditedssl"></i> <span class="nav-label">用户与权限</span> <span class="fa arrow"></span></a>
 			<%} %>
 				<ul class="nav nav-second-level">
 					<%if(contentPage.equalsIgnoreCase("sysUserList")||contentPage.equalsIgnoreCase("sysUserEdit")){ %>
@@ -96,18 +175,13 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 					
 				</ul>
 			</li>
-			<%} %>
 			
 			
 			
-			<%
-			//菜单权限判断
-			if(ShiroUtil.isPermittedAnyPerm("hr_menu_auth")){
-			%>
 			<%if(contentPage.contains("hr")||contentPage.contains("staffDepartmentRelate")){ %>
-				<li class="active"><a href="javascript:void(0)"><i class="fa fa-user-circle"></i> <span class="nav-label">职员与组织</span> <span class="fa arrow"></span></a>
+				<li class="active menu"><a href="javascript:void(0)"><i class="fa fa-user-circle"></i> <span class="nav-label">职员与组织</span> <span class="fa arrow"></span></a>
 			<%}else{ %>
-				<li><a href="javascript:void(0)"><i class="fa fa-user-circle"></i> <span class="nav-label">职员与组织</span> <span class="fa arrow"></span></a>
+				<li class="menu"><a href="javascript:void(0)"><i class="fa fa-user-circle"></i> <span class="nav-label">职员与组织</span> <span class="fa arrow"></span></a>
 			<%} %>
 				<ul class="nav nav-second-level">
 					<%if(contentPage.equalsIgnoreCase("hrStaffList")||contentPage.equalsIgnoreCase("hrStaffEdit")){ %>
@@ -136,18 +210,13 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 					
 				</ul>
 			</li>
-			<%} %>
 			
 			
 			
-			<%
-			//菜单权限判断
-			if(ShiroUtil.isPermittedAnyPerm("md_menu_auth")){
-			%>
 			<%if(contentPage.contains("md")||contentPage.contains("subject")){ %>
-				<li class="active"><a href="javascript:void(0)"><i class="fa fa-database"></i> <span class="nav-label">主数据</span> <span class="fa arrow"></span></a>
+				<li class="active menu"><a href="javascript:void(0)"><i class="fa fa-database"></i> <span class="nav-label">主数据</span> <span class="fa arrow"></span></a>
 			<%}else{ %>
-				<li><a href="javascript:void(0)"><i class="fa fa-database"></i> <span class="nav-label">主数据</span> <span class="fa arrow"></span></a>
+				<li class="menu"><a href="javascript:void(0)"><i class="fa fa-database"></i> <span class="nav-label">主数据</span> <span class="fa arrow"></span></a>
 			<%} %>
 				<ul class="nav nav-second-level">
 					<%if(contentPage.equalsIgnoreCase("mdCustomerList")||contentPage.equalsIgnoreCase("mdCustomerEdit")){ %>
@@ -163,15 +232,15 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 					<%} %>
 					
 					<%if(contentPage.equalsIgnoreCase("mdMaterialCategoryList")){ %>
-						<li class="active"><a href="web/mdMaterialCategory/getMdMaterialCategoryList">物料与事项类型</a></li>
+						<li class="active"><a href="web/mdMaterialCategory/getMdMaterialCategoryList">物料与服务类型</a></li>
 					<%}else{ %>
-						<li><a href="web/mdMaterialCategory/getMdMaterialCategoryList">物料与事项类型</a></li>
+						<li><a href="web/mdMaterialCategory/getMdMaterialCategoryList">物料与服务类型</a></li>
 					<%} %>
 					
 					<%if(contentPage.equalsIgnoreCase("mdMaterialList")||contentPage.equalsIgnoreCase("mdMaterialEdit")){ %>
-						<li class="active"><a href="web/mdMaterial/getMdMaterialList">物料与事项</a></li>
+						<li class="active"><a href="web/mdMaterial/getMdMaterialList">物料与服务</a></li>
 					<%}else{ %>
-						<li><a href="web/mdMaterial/getMdMaterialList">物料与事项</a></li>
+						<li><a href="web/mdMaterial/getMdMaterialList">物料与服务</a></li>
 					<%} %>
 					
 					<%if(contentPage.equalsIgnoreCase("mdProjectList")||contentPage.equalsIgnoreCase("mdProjectEdit")){ %>
@@ -188,19 +257,13 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 					
 				</ul>
 			</li>
-			<%} %>
-
 			
 			
 			
-			<%
-			//菜单权限判断
-			if(ShiroUtil.isPermittedAnyPerm("order_menu_auth")){
-			%>
 			<%if(contentPage.contains("po")||contentPage.contains("so")){ %>
-				<li class="active"><a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">订单管理</span><span class="fa arrow"></span></a>
+				<li class="active menu"><a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">订单管理</span><span class="fa arrow"></span></a>
 			<%}else{ %>
-				<li><a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">订单管理</span><span class="fa arrow"></span></a>
+				<li class="menu"><a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">订单管理</span><span class="fa arrow"></span></a>
 			<%} %>
 				<ul class="nav nav-second-level collapse">
 					<%if(contentPage.equalsIgnoreCase("poList")||contentPage.equalsIgnoreCase("poEdit")){ %>
@@ -221,60 +284,85 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 					--%>
 				</ul>
 			</li>
-			<%} %>
 				
-			<%-- 
-			<li><a href="#"><i class="fa fa-edit"></i> <span class="nav-label">库房管理</span><span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level collapse">
-					<li><a href="form_basic.html">入库单</a></li>
-					<li><a href="form_advanced.html">出库单</a></li>
-					<li><a href="form_wizard.html">库存管理</a></li>
-					<li><a href="form_file_upload.html">库存盘点</a></li>
-				</ul></li>
-				--%>	
-				
-			
-			
-			<%
-			//菜单权限判断
-			if(ShiroUtil.isPermittedAnyPerm("pay_receipt_menu_auth")){
-			%>	
-			<%if(contentPage.contains("pay")||contentPage.contains("receipt")){ %>	
-				<li class="active"><a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">收付款</span><span class="fa arrow"></span></a>
+			<%if(contentPage.contains("inv")){ %>		
+				<li class="active menu"><a href="#"><i class="fa fa-truck"></i> <span class="nav-label">库房管理</span><span class="fa arrow"></span></a>
 			<%}else{ %>
-				<li><a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">收付款</span><span class="fa arrow"></span></a>
+				<li class="menu"><a href="#"><i class="fa fa-truck"></i> <span class="nav-label">库房管理</span><span class="fa arrow"></span></a>
 			<%} %>
 				<ul class="nav nav-second-level collapse">
-					<%if(contentPage.equalsIgnoreCase("payList")||contentPage.equalsIgnoreCase("payEdit")){ %>
-						<li class="active"><a href="web/payHead/getPayHeadList">付款单</a></li>
+					<%if(contentPage.equalsIgnoreCase("invInputList")||contentPage.equalsIgnoreCase("invInputEdit")){ %>
+						<li class="active"><a href="web/invInputHead/getInvInputHeadList">入库单</a></li>
 					<%}else{ %>
-						<li><a href="web/payHead/getPayHeadList">付款单</a></li>
+						<li><a href="web/invInputHead/getInvInputHeadList">入库单</a></li>
 					<%} %>
 					
-					<%if(contentPage.equalsIgnoreCase("receiptList")||contentPage.equalsIgnoreCase("receiptEdit")){ %>
-						<li class="active"><a href="web/receiptHead/getReceiptHeadList">收款单</a></li>
+					<%if(contentPage.equalsIgnoreCase("invOutputList")||contentPage.equalsIgnoreCase("invOutputEdit")){ %>
+						<li class="active"><a href="web/invOutputHead/getInvOutputHeadList">出库单</a></li>
 					<%}else{ %>
-						<li><a href="web/receiptHead/getReceiptHeadList">收款单</a></li>
+						<li><a href="web/invOutputHead/getInvOutputHeadList">出库单</a></li>
 					<%} %>
 					
-					<%-- 
-					<li><a href="profile.html">付款确认</a></li>
-					<li><a href="contacts_2.html">收款确认</a></li>
-					--%>
+					<%if(contentPage.equalsIgnoreCase("invWarehouseList")||contentPage.equalsIgnoreCase("invWarehouseEdit")
+						||contentPage.equalsIgnoreCase("invStockList")||contentPage.equalsIgnoreCase("invStockEdit")||contentPage.equalsIgnoreCase("invStockDetailList")
+						||contentPage.equalsIgnoreCase("invStockCheckList")||contentPage.equalsIgnoreCase("invStockCheckEdit")){ %>
+						<li class="active"><a href="web/invWarehouse/getInvWarehouseList">仓库及库存管理</a></li>
+					<%}else{ %>
+						<li><a href="web/invWarehouse/getInvWarehouseList">仓库及库存管理</a></li>
+					<%} %>
 				</ul>
 			</li>
-			<%} %>
+				
 			
 			
-			
-			<%
-			//菜单权限判断
-			if(ShiroUtil.isPermittedAnyPerm("fin_menu_auth")){
-			%>
-			<%if(contentPage.contains("voucher")){ %>		
-				<li class="active"><a href="#"><i class="fa fa-money"></i> <span class="nav-label">财务管理</span><span class="fa arrow"></span></a>
+			<%if(contentPage.contains("apInvoice")||contentPage.contains("arInvoice")){ %>	
+				<li class="active menu"><a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">发票管理</span><span class="fa arrow"></span></a>
 			<%}else{ %>
-				<li><a href="#"><i class="fa fa-money"></i> <span class="nav-label">财务管理</span><span class="fa arrow"></span></a>
+				<li class="menu"><a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">发票管理</span><span class="fa arrow"></span></a>
+			<%} %>
+				<ul class="nav nav-second-level collapse">
+					<%if(contentPage.equalsIgnoreCase("apInvoiceList")||contentPage.equalsIgnoreCase("apInvoiceEdit")){ %>
+						<li class="active"><a href="web/apInvoiceHead/getApInvoiceHeadList">采购发票</a></li>
+					<%}else{ %>
+						<li><a href="web/apInvoiceHead/getApInvoiceHeadList">采购发票</a></li>
+					<%} %>
+					
+					<%if(contentPage.equalsIgnoreCase("arInvoiceList")||contentPage.equalsIgnoreCase("arInvoiceEdit")){ %>
+						<li class="active"><a href="web/arInvoiceHead/getArInvoiceHeadList">销售发票</a></li>
+					<%}else{ %>
+						<li><a href="web/arInvoiceHead/getArInvoiceHeadList">销售发票</a></li>
+					<%} %>
+				</ul>
+			</li>
+			
+			
+			
+			<%if(contentPage.contains("apPay")||contentPage.contains("arReceipt")){ %>	
+				<li class="active menu"><a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">收付款管理</span><span class="fa arrow"></span></a>
+			<%}else{ %>
+				<li class="menu"><a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">收付款管理</span><span class="fa arrow"></span></a>
+			<%} %>
+				<ul class="nav nav-second-level collapse">
+					<%if(contentPage.equalsIgnoreCase("apPayList")||contentPage.equalsIgnoreCase("apPayEdit")){ %>
+						<li class="active"><a href="web/apPayHead/getApPayHeadList">付款管理</a></li>
+					<%}else{ %>
+						<li><a href="web/apPayHead/getApPayHeadList">付款管理</a></li>
+					<%} %>
+					
+					<%if(contentPage.equalsIgnoreCase("arReceiptList")||contentPage.equalsIgnoreCase("arReceiptEdit")){ %>
+						<li class="active"><a href="web/arReceiptHead/getArReceiptHeadList">收款管理</a></li>
+					<%}else{ %>
+						<li><a href="web/arReceiptHead/getArReceiptHeadList">收款管理</a></li>
+					<%} %>
+				</ul>
+			</li>
+			
+			
+			
+			<%if(contentPage.contains("voucher")){ %>		
+				<li class="active menu"><a href="#"><i class="fa fa-money"></i> <span class="nav-label">财务管理</span><span class="fa arrow"></span></a>
+			<%}else{ %>
+				<li class="menu"><a href="#"><i class="fa fa-money"></i> <span class="nav-label">财务管理</span><span class="fa arrow"></span></a>
 			<%} %>
 				<ul class="nav nav-second-level collapse">
 					<%if(contentPage.equalsIgnoreCase("voucherList")||contentPage.equalsIgnoreCase("voucherEdit")){ %>
@@ -288,20 +376,21 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 					<%}else{ %>
 						<li><a href="web/finVoucherModelHead/getFinVoucherModelHeadList">凭证模板管理</a></li>
 					<%} %>
+					
+					<%if(contentPage.equalsIgnoreCase("voucherTypeNumberEdit")){ %>
+						<li class="active"><a href="web/finVoucherModelHead/getVoucherTypeNumber">凭证号维护&nbsp;<i class="fa fa-sliders"></i></a></li>
+					<%}else{ %>
+						<li><a href="web/finVoucherModelHead/getVoucherTypeNumber">凭证号维护&nbsp;<i class="fa fa-sliders"></i></a></li>
+					<%} %>
 				</ul>
 			</li>
-			<%} %>
 			
 			
 			
-			<%
-			//菜单权限判断
-			if(ShiroUtil.isPermittedAnyPerm("system_menu_auth")){
-			%>
 			<%if(contentPage.contains("dataset")){ %>
-				<li class="active"><a href="javascript:void(0)"><i class="fa fa-cog"></i> <span class="nav-label">系统配置</span><span class="label label-info float-right">管理员</span></a>
+				<li class="active menu"><a href="javascript:void(0)"><i class="fa fa-cog"></i> <span class="nav-label">系统配置</span><span class="label label-info float-right">管理员</span></a>
 			<%}else{ %>
-				<li><a href="javascript:void(0)"><i class="fa fa-cog"></i> <span class="nav-label">系统配置</span><span class="label label-info float-right">管理员</span></a>
+				<li class="menu"><a href="javascript:void(0)"><i class="fa fa-cog"></i> <span class="nav-label">系统配置</span><span class="label label-info float-right">管理员</span></a>
 			<%} %>
 				
 				<ul class="nav nav-second-level collapse">
@@ -317,7 +406,7 @@ contentPage=contentPage.substring(contentPage.lastIndexOf("/")+1, contentPage.le
 					--%>
 				</ul>
 			</li>
-			<%} %>
+
 			
 			
 		</ul>

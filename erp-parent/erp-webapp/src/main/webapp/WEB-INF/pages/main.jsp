@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -82,10 +85,10 @@
 					</div>
 					<small>手工凭证</small>
 					
-					<h1 class="no-margins"></h1>
+					<h1 class="no-margins">&nbsp;</h1>
 					<div class="stat-percent font-bold text-danger">
 					</div>
-					<small></small>
+					<small>&nbsp;</small>
 				</div>
 			</div>
 		</div>
@@ -256,12 +259,12 @@
 								    </li>
 								    <li>
 								        <p>
-								            在<strong>【物料与事项类型】</strong>中创建公司需要的物料或事项类型
+								            在<strong>【物料与服务类型】</strong>中创建公司需要的物料或服务类型
 								        </p>
 								    </li>
 								    <li>
 								        <p>
-								            在<strong>【物料与事项】</strong>中创建新物料或事项，并提交审核
+								            在<strong>【物料与服务】</strong>中创建新物料或服务，并提交审核
 								        </p>
 								    </li>
 								    <li>
@@ -315,8 +318,8 @@
 								(6)&nbsp;付款与收款单<br/>
 								(7)&nbsp;凭证管理
 								</p>
-								<a href="#" class="btn btn-sm btn-success">&nbsp;访问官网&nbsp;</a> 
-								<span class="vertical-date" style="font-weight: bold;"> v0.5 <br /> <small>2020.8.8</small>
+								<a href="https://www.redragon-erp.com" target="_blank" class="btn btn-sm btn-success">&nbsp;访问官网&nbsp;</a> 
+								<span class="vertical-date" style="font-weight: bold;"> v0.5 （已发布）<br /> <small>2020.8.12</small>
 								</span>
 							</div>
 						</div>
@@ -329,11 +332,13 @@
 							<div class="vertical-timeline-content">
 								<h2>小版本更新：解决第一版BUG，增加小功能</h2>
 								<p>
-								(1)&nbsp;功能待定<br/>
-								(2)&nbsp;功能待定<br/>
-								(3)&nbsp;功能待定<br/>
+								(1)&nbsp;增加数据权限功能及配置<br/>
+								(2)&nbsp;增加操作权限功能及配置<br/>
+								(3)&nbsp;优化凭证自动编号逻辑<br/>
+								(4)&nbsp;优化表单提交验证逻辑<br/>
+								(5)&nbsp;增加结算时收付款金额的判断逻辑<br/>
 								</p>
-								<span class="vertical-date" style="font-weight: bold;"> v0.51 <br /> <small>2020.8.22</small>
+								<span class="vertical-date" style="font-weight: bold;"> v0.51 （已发布）<br /> <small>2020.8</small>
 								</span>
 							</div>
 						</div>
@@ -346,14 +351,50 @@
 							<div class="vertical-timeline-content">
 								<h2>新功能迭代</h2>
 								<p>
-								(1)&nbsp;功能待定<br/>
-								(2)&nbsp;功能待定<br/>
-								(3)&nbsp;功能待定<br/>
+								(1)&nbsp;增加入库管理、出库管理<br/>
+								(2)&nbsp;增加仓库管理、库存管理及库存盘点<br/>
+								(3)&nbsp;优化shiro授权时的存储逻辑<br/>
 								</p>
-								<a href="#" class="btn btn-sm btn-info">版本说明</a> 
-								<span class="vertical-date" style="font-weight: bold;"> v0.6 <br /> <small>2020.9</small></span>
+								<a href="https://gitee.com/redragon/redragon-erp/blob/master/README.md" target="_blank" class="btn btn-sm btn-info">版本说明</a> 
+								<span class="vertical-date" style="font-weight: bold;"> v0.6 （已发布）<br /> <small>2020.9</small></span>
 							</div>
 						</div>
+						
+						<div class="vertical-timeline-block">
+							<div class="vertical-timeline-icon yellow-bg">
+								<i class="fa fa-info-circle"></i>
+							</div>
+
+							<div class="vertical-timeline-content">
+								<h2>小版本更新：解决0.6版本 BUG，增加小功能</h2>
+								<p>
+								(1)&nbsp;优化物料选择逻辑<br/>
+								(2)&nbsp;优化maven jar包依赖关系<br/>
+								(3)&nbsp;软件分发时同步发布war包<br/>
+								</p>
+								<span class="vertical-date" style="font-weight: bold;"> v0.61 （已发布）<br /> <small>2020.9</small>
+								</span>
+							</div>
+						</div>
+						
+						<div class="vertical-timeline-block">
+							<div class="vertical-timeline-icon lazur-bg">
+								<i class="fa fa-flash"></i>
+							</div>
+
+							<div class="vertical-timeline-content">
+								<h2>新功能迭代</h2>
+								<p>
+								(1)&nbsp;增加应收发票管理<br/>
+								(2)&nbsp;增加应付发票管理<br/>
+								(3)&nbsp;实现三单匹配<br/>
+								</p>
+								<a href="https://gitee.com/redragon/redragon-erp/blob/master/README.md" target="_blank" class="btn btn-sm btn-info">版本说明</a> 
+								<span class="vertical-date" style="font-weight: bold;"> v0.6 （开发中）<br /> <small>2020.10</small></span>
+							</div>
+						</div>
+						
+						
 
 					</div>
 				</div>

@@ -1,17 +1,20 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.order.so.dao.hibernate;
 
@@ -108,6 +111,7 @@ public class SoHeadDaoImpl implements SoHeadDao{
         sql = sql + DaoUtil.getSQLCondition(paramObj, "soName", "and s.", args);
         sql = sql + DaoUtil.getSQLCondition(paramObj, "customerCode", "and s.", args);
         sql = sql + DaoUtil.getSQLCondition(paramObj, "projectCode", "and s.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "approveStatus", "and s.", args);
         sql = sql + DaoUtil.getSQLCondition(paramObj, "status", "and s.", args);
         sql = sql + " order by s.so_head_id desc";
         
@@ -123,18 +127,42 @@ public class SoHeadDaoImpl implements SoHeadDao{
     }
     
     @Override
-    @Permissions(PermissionType.OWN)
+    @Permissions(PermissionType.DATA_AUTH)
     public List<SoHead> getDataObjectsForDataAuth(@SqlParam String dataAuthSQL, Pages pages, SoHeadCO paramObj) {
-        return null;
+        String sql = "select s.* from so_head s where 1=1";
+        
+        Map<String, Object> args = new HashMap<String, Object>();
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "soHeadCode", "and s.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "soType", "and s.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "soName", "and s.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "customerCode", "and s.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "projectCode", "and s.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "approveStatus", "and s.", args);
+        sql = sql + DaoUtil.getSQLCondition(paramObj, "status", "and s.", args);
+        sql = sql + DaoUtil.getDataAuthSQL(dataAuthSQL, "s.", "s.");
+        sql = sql + " order by s.so_head_id desc";
+        
+        Map<String, Class<?>> entity = new HashMap<String, Class<?>>();
+        entity.put("s", SoHead.class);
+        
+        return this.daoSupport.getDataSqlByPage(sql, entity, args, pages);
     }
     
     @Override
     public void updateApproveStatus(String code, String approveStatus) {
-        String sql = "update so_head set approve_status = :approveStatus where so_head_code = :code";
+        String sql = "update so_head set approve_status = :approveStatus";
         
         Map<String, Object> args = new HashMap<String, Object>();
         args.put("code", code);
         args.put("approveStatus", approveStatus);
+        
+        if(approveStatus.equals("APPROVE")) {
+            sql = sql + " ,status = 'CONFIRM'";
+        }else if(approveStatus.equals("UNSUBMIT")) {
+            sql = sql + " ,status = 'ALTER'";
+        }
+        
+        sql = sql + " where so_head_code = :code";
         
         this.daoSupport.executeSQLTransaction(sql, args);
     }

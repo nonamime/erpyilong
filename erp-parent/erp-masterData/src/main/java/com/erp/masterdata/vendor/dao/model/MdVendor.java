@@ -1,12 +1,33 @@
+/*
+ * Copyright 2020-2021 redragon.dongbin
+ *
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
+ */
 package com.erp.masterdata.vendor.dao.model;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.annotations.DynamicInsert;
@@ -231,5 +252,29 @@ public class MdVendor implements java.io.Serializable {
         this.orgCode = orgCode;
     }
     
+    
+    
+    //显示字段
+    //供应商联系人
+    @Transient
+    private List<MdVendorContact> mdVendorContactList;
+
+    public List<MdVendorContact> getMdVendorContactList() {
+        return mdVendorContactList;
+    }
+    public void setMdVendorContactList(List<MdVendorContact> mdVendorContactList) {
+        this.mdVendorContactList = mdVendorContactList;
+    }
+    
+    //供应商营业执照
+    @Transient
+    private MdVendorLicense mdVendorLicense;
+
+    public MdVendorLicense getMdVendorLicense() {
+        return mdVendorLicense;
+    }
+    public void setMdVendorLicense(MdVendorLicense mdVendorLicense) {
+        this.mdVendorLicense = mdVendorLicense;
+    }
     
 }

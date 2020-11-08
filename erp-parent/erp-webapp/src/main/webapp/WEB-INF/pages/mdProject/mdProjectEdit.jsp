@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -30,12 +33,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="wrapper wrapper-content animated fadeInRight">
 
 	<%-- 导入提示信息框 --%>
-	<c:if test="${requestScope.hints!=null&&requestScope.hints!=''}">
-		<jsp:include page="../common/alert/alert.jsp">
-			<jsp:param value="hint" name="alertType"/>
-			<jsp:param value="${fn:replace(requestScope.hints,';', '<br/>')}" name="alertMessage"/>
-		</jsp:include>
-	</c:if>
+    <c:if test="${hint!=null&&hint!=''}">
+   		<jsp:include page="../common/alert/alert.jsp">
+   			<jsp:param value="${hint}" name="alertType"/>
+   			<jsp:param value="${alertMessage}" name="alertMessage"/>
+   		</jsp:include>
+    </c:if>
 
 	<div class="row">
 		<div class="col-lg-12">
@@ -133,11 +136,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<button class="btn btn-primary btn-lg" type="button" onclick="window.location.href='web/mdProject/updateApproveStatus?id=${param.projectId}&approveStatus=SUBMIT'">&nbsp;&nbsp;提交&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></button>&nbsp;
 									</c:if>
 									<c:if test="${requestScope.mdProject.approveStatus=='SUBMIT' }">
-										<button class="btn btn-warning btn-lg" type="button" onclick="window.location.href='web/mdProject/updateApproveStatus?id=${param.projectId}&approveStatus=APPROVE'">&nbsp;&nbsp;审核通过&nbsp;&nbsp;<i class="fa fa-check-circle"></i></button>&nbsp;
-										<button class="btn btn-danger btn-lg" type="button" onclick="window.location.href='web/mdProject/updateApproveStatus?id=${param.projectId}&approveStatus=REJECT'">&nbsp;&nbsp;驳回&nbsp;&nbsp;<i class="fa fa-times-circle"></i></button>&nbsp;
+										<button class="btn btn-warning btn-lg btn-redragon-approve" type="button" onclick="approveData()">&nbsp;&nbsp;审核通过&nbsp;&nbsp;<i class="fa fa-check-circle"></i></button>&nbsp;
+										<button class="btn btn-danger btn-lg btn-redragon-approve" type="button" onclick="window.location.href='web/mdProject/updateApproveStatus?id=${param.projectId}&approveStatus=REJECT'">&nbsp;&nbsp;驳回&nbsp;&nbsp;<i class="fa fa-times-circle"></i></button>&nbsp;
 									</c:if>
 									<c:if test="${requestScope.mdProject.approveStatus=='APPROVE' }">
-										<button class="btn btn-success btn-lg" type="button" onclick="window.location.href='web/mdProject/updateApproveStatus?id=${param.projectId}&approveStatus=UNSUBMIT'">&nbsp;&nbsp;变更&nbsp;&nbsp;<i class="fa fa-retweet"></i></button>&nbsp;
+										<button class="btn btn-success btn-lg" type="button" onclick="alterData()">&nbsp;&nbsp;变更&nbsp;&nbsp;<i class="fa fa-retweet"></i></button>&nbsp;
 									</c:if>
 								</c:if>
 							</div>
@@ -218,4 +221,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    }
 		});
 	});
+	
+	//审批通过
+	function approveData(){
+		redragonJS.confirm("确认审批通过？", function(){
+			window.location.href='web/mdProject/updateApproveStatus?id=${param.projectId}&approveStatus=APPROVE';
+		});
+	}
+	
+	//数据变更
+	function alterData(){
+		redragonJS.confirm("确认变更数据？数据变更可能会影响到已有的业务！", function(){
+			window.location.href='web/mdProject/updateApproveStatus?id=${param.projectId}&approveStatus=UNSUBMIT';
+		});
+	}
 </script>

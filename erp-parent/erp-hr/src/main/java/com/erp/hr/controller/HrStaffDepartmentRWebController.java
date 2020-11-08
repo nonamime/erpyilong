@@ -1,17 +1,20 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.hr.controller;
 
@@ -32,7 +35,9 @@ import com.framework.util.JsonResultUtil;
 import com.framework.util.JsonUtil;
 import com.erp.hr.dao.model.HrDepartment;
 import com.erp.hr.dao.model.HrPosition;
+import com.erp.hr.dao.model.HrPositionCO;
 import com.erp.hr.dao.model.HrStaff;
+import com.erp.hr.dao.model.HrStaffCO;
 import com.erp.hr.dao.model.HrStaffDepartmentR;
 import com.erp.hr.dao.model.HrStaffDepartmentRCO;
 import com.erp.hr.service.HrDepartmentService;
@@ -134,10 +139,14 @@ public class HrStaffDepartmentRWebController extends ControllerSupport{
         HrDepartment hrDepartment = this.hrDepartmentService.getDataObject(departmentId);
         
         //获取职员列表
-        List<HrStaff> hrStaffList = this.hrStaffService.getDataObjects();
+        HrStaffCO hrStaffCO = new HrStaffCO();
+        hrStaffCO.setStaffStatus("WORK");
+        List<HrStaff> hrStaffList = this.hrStaffService.getDataObjects(hrStaffCO);
         
         //获取岗位列表
-        List<HrPosition> hrPositionList = this.hrPositionService.getDataObjects();
+        HrPositionCO hrPositionCO = new HrPositionCO();
+        hrPositionCO.setStatus("Y");
+        List<HrPosition> hrPositionList = this.hrPositionService.getDataObjects(hrPositionCO);
         
         //页面属性设置
         model.addAttribute("hrStaffDepartmentR", hrStaffDepartmentR);

@@ -3,7 +3,7 @@
   <parent>
     <groupId>redragon</groupId>
     <artifactId>erp-parent</artifactId>
-    <version>1.0</version>
+    <version>0.9</version>
   </parent>
   <artifactId>erp-permission</artifactId>
   <packaging>war</packaging>
@@ -23,8 +23,8 @@
   <dependencies>
   	<dependency>
   		<groupId>redragon</groupId>
-  		<artifactId>erp-springboot</artifactId>
-  		<version>1.0.0</version>
+  		<artifactId>erp-dataset</artifactId>
+  		<version>${redragon.erp.version}</version>
   	</dependency>
   </dependencies>
 </project>

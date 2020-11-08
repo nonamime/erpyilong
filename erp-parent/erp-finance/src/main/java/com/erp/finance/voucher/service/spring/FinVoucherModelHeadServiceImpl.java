@@ -1,17 +1,20 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.finance.voucher.service.spring;
 
@@ -43,6 +46,7 @@ import com.erp.finance.voucher.service.FinVoucherBillRService;
 import com.erp.finance.voucher.service.FinVoucherHeadService;
 import com.erp.finance.voucher.service.FinVoucherLineService;
 import com.erp.finance.voucher.service.FinVoucherModelHeadService;
+import com.erp.finance.voucher.util.FinVoucherUtil;
 import com.erp.hr.dao.model.HrStaffInfoRO;
 import com.erp.hr.service.HrCommonService;
 
@@ -82,6 +86,7 @@ public class FinVoucherModelHeadServiceImpl implements FinVoucherModelHeadServic
     @Override
     public void deleteDataObject(FinVoucherModelHead obj) {
         this.finVoucherModelHeadDao.deleteDataObject(obj);
+        this.finVoucherModelLineDao.deleteFinVoucherModelLineByVoucherHeadCode(obj.getVoucherHeadCode());
     }
 
     @Override
@@ -154,7 +159,7 @@ public class FinVoucherModelHeadServiceImpl implements FinVoucherModelHeadServic
         //获取凭证模板头
         FinVoucherModelHead finVoucherModelHead = this.finVoucherModelHeadDao.getFinVoucherModelHeadByBusinessType(businessType);
         
-        //获取凭证模板头
+        //获取凭证模板行
         if(finVoucherModelHead!=null) {
            List<FinVoucherModelLine> finVoucherModelLineList = this.finVoucherModelLineDao.getFinVoucherModelLineListByVoucherHeadCode(finVoucherModelHead.getVoucherHeadCode());
            
@@ -167,8 +172,8 @@ public class FinVoucherModelHeadServiceImpl implements FinVoucherModelHeadServic
                String code = SnowFlake.generateId().toString();
                finVoucherHead.setVoucherHeadCode(code);
                finVoucherHead.setVoucherType(finVoucherModelHead.getVoucherType());
-               //bbc凭证编号临时处理（不能采用雪花算法，各企业算法可能不同）
-               finVoucherHead.setVoucherNumber(code);
+               //获取凭证编号
+               finVoucherHead.setVoucherNumber(FinVoucherUtil.incrVoucherNumberCache(finVoucherModelHead.getVoucherType()).toString());
                //获取当前用户职员信息
                HrStaffInfoRO staffInfo = this.hrCommonService.getStaffInfo(ShiroUtil.getUsername());
                finVoucherHead.setStaffCode(staffInfo.getStaffCode());

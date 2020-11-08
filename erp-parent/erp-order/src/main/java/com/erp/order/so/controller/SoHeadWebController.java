@@ -1,17 +1,20 @@
 /*
  * Copyright 2020-2021 redragon.dongbin
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This file is part of redragon-erp/赤龙ERP.
+
+ * redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.erp.order.so.controller;
 
@@ -23,17 +26,22 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.framework.controller.ControllerSupport;
+import com.framework.dao.data.GlobalDataBox;
 import com.framework.dao.model.Pages;
 import com.framework.util.JsonResultUtil;
 import com.framework.util.JsonUtil;
 import com.framework.util.ShiroUtil;
-import com.springboot.dao.data.GlobalDataBox;
+import com.erp.common.ap.invoice.service.ApInvoiceHeadService;
+import com.erp.common.ar.invoice.service.ArInvoiceHeadService;
+import com.erp.common.inv.input.service.InvInputHeadService;
+import com.erp.common.inv.output.service.InvOutputHeadService;
 import com.erp.dataset.service.DatasetCommonService;
 import com.erp.hr.dao.model.HrStaffInfoRO;
 import com.erp.hr.service.HrCommonService;
@@ -63,6 +71,12 @@ public class SoHeadWebController extends ControllerSupport{
     private MasterDataCommonService masterDataCommonService;
     @Autowired
     private SoLineService soLineService;
+    @Autowired
+    @Qualifier("invOutputHeadServiceCommon")
+    private InvOutputHeadService invOutputHeadService;
+    @Autowired
+    @Qualifier("arInvoiceHeadServiceCommon")
+    private ArInvoiceHeadService arInvoiceHeadService;
     
     @Override
     public String getExceptionRedirectURL() {
@@ -90,7 +104,7 @@ public class SoHeadWebController extends ControllerSupport{
         }
         
         //分页查询数据
-        List<SoHead> soHeadList = this.soHeadService.getDataObjects(pages, soHeadCO);
+        List<SoHead> soHeadList = this.soHeadService.getDataObjectsForDataAuth("", pages, soHeadCO);
         
         //采购销售类型
         Map soTypeMap = this.datasetCommonService.getSOType();
@@ -241,7 +255,6 @@ public class SoHeadWebController extends ControllerSupport{
             if(soHead.getStatus().equals("NEW")) {
                 //删除数据
                 this.soHeadService.deleteDataObject(soHead);
-                this.soLineService.deletetSoLineBySoHeadCode(soHead.getSoHeadCode());
                 
                 //提示信息
                 attr.addFlashAttribute("hint", "success");
@@ -274,6 +287,26 @@ public class SoHeadWebController extends ControllerSupport{
     public String updateApproveStatus(String code, String approveStatus, RedirectAttributes attr) {
         
         if(StringUtils.isNotBlank(code)&&StringUtils.isNotBlank(approveStatus)) {
+            if(approveStatus.equals("UNSUBMIT")) {
+                boolean outputFlag = this.invOutputHeadService.isExistInvOutputHeadRelateSO(code);
+                if(!outputFlag) {
+                    boolean invoiceFlag = this.arInvoiceHeadService.isExistArInvoiceRelateSO(code);
+                    if(invoiceFlag) {
+                        //提示信息
+                        attr.addFlashAttribute("hint", "hint");
+                        attr.addFlashAttribute("alertMessage", "当前销售订单已开票不能变更");
+                        attr.addAttribute("soHeadCode", code);
+                        return "redirect:getSoHead";
+                    }
+                }else {
+                    //提示信息
+                    attr.addFlashAttribute("hint", "hint");
+                    attr.addFlashAttribute("alertMessage", "当前销售订单已入库不能变更");
+                    attr.addAttribute("soHeadCode", code);
+                    return "redirect:getSoHead";
+                }
+            }
+            
             //更新审核状态
             this.soHeadService.updateApproveStatus(code, approveStatus);
           //提示信息

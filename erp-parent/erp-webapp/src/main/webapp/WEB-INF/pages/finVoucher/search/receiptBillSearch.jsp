@@ -1,18 +1,21 @@
 <%--
 
-	Copyright 2020-2021 redragon.dongbin
+    Copyright 2020-2021 redragon.dongbin
+ 
+    This file is part of redragon-erp/赤龙ERP.
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+    redragon-erp/赤龙ERP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
 
-      https://www.apache.org/licenses/LICENSE-2.0
+    redragon-erp/赤龙ERP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+    You should have received a copy of the GNU General Public License
+    along with redragon-erp/赤龙ERP.  If not, see <https://www.gnu.org/licenses/>.
 	
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -32,27 +35,36 @@
 	
 	<div class="ibox-content m-b-sm border-bottom" style="padding-bottom: 0px; padding-top: 5px;">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="form-group" style="margin-bottom: 5px;">
 					<label class="control-label" for="receiptHeadCodeSearch">收款单编码</label> 
 					<input type="text" id="receiptHeadCodeSearch" name="receiptHeadCodeSearch" value="${param.receiptHeadCode}" class="form-control">
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="form-group" style="margin-bottom: 5px;">
-					<label class="control-label" for="receiptSourceHeadCodeSearch">销售订单编码</label> 
-					<input type="text" id="receiptSourceHeadCodeSearch" name="receiptSourceHeadCodeSearch" value="${param.receiptSourceHeadCode}" class="form-control">
+					<label class="control-label" for="receiptSourceHeadCodeSearch">付款金额</label> 
+					<input type="text" id="receiptAmountSearch" name="receiptAmountSearch" value="${param.amount}" class="form-control">
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="form-group">
-					<label class="control-label" for="payerSearch">收款方</label> 
-                    <select class="chosen-select form-control" name="payerSearch" id="payerSearch">
+					<label class="control-label" for="customerCodeSearch">客户</label> 
+                    <select class="chosen-select form-control" name="customerCodeSearch" id="customerCodeSearch">
                     	<option value="" selected="selected">请选择...</option>
                     	<c:forEach items="${requestScope.customerMap}" var="customer">
                     		<option value="${customer.key}">${customer.value}</option>
                     	</c:forEach>
                     </select>					
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group" style="margin-bottom: 5px;">
+					<label class="control-label" for="receiptDateSearch">收款日期</label> 
+					<div class="input-group date">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="receiptDateSearch" name="receiptDateSearch" type="text" class="form-control" value="${param.receiptDate}" autocomplete="off">
+					</div>
 				</div>
 			</div>
 		</div>	
@@ -78,8 +90,8 @@
 <script>
 $(document).ready(function(){
 	//设置receiver
-	if("${param.payer}"!=""){
-		$("#payerSearch").val("${param.payer}");
+	if("${param.customerCode}"!=""){
+		$("#customerCodeSearch").val("${param.customerCode}");
 	}
 	
 	//初始化chosen-select
@@ -88,6 +100,17 @@ $(document).ready(function(){
 	//查询按钮
 	$("#searchBillConfirmButton").click(function(){
 		getSelectBillModal("RECEIPT");
+	});
+	
+	//设置日期插件
+	$('#receiptDateSearch').datepicker({
+		todayBtn : "linked",
+		keyboardNavigation : true,
+		forceParse : false,
+		calendarWeeks : false,
+		autoclose : true,
+		format: 'yyyy-mm-dd',
+		language: 'zh-CN',
 	});
 });
 </script>

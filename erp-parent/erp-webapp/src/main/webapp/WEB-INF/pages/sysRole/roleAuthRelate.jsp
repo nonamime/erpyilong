@@ -114,8 +114,8 @@ $(document).ready(function(){
 
 	$('.dual_select').bootstrapDualListbox({
         selectorMinimalHeight: 160,
-        nonSelectedListLabel: '未选择的角色',
-	    selectedListLabel: '已选择的角色',
+        nonSelectedListLabel: '未选择的权限',
+	    selectedListLabel: '已选择的权限',
 	    filterPlaceHolder: '输入查询条件...',
 	    moveSelectedLabel: "添加",
 	    moveAllLabel: '添加所有',

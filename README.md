@@ -51,7 +51,7 @@
 #### :fa-diamond: 我们的愿景是变革中国企业信息化现状。【改变从现在开始】--赤龙ERP
 
 # 演示地址
-社区版：[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
+生态版：[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
 
 [:fa-hand-o-right: 点击自助申请账号](https://www.redragon-erp.com/account.html "https://www.redragon-erp.com/account.html")
 
@@ -104,7 +104,7 @@
 - 商业分发授权：赤龙ERP社区版在取得软件的正式授权前禁止任何形式的商业行为；在取得软件开发者的授权后，才有权进行二次分发并收费。[了解更多](https://www.redragon-erp.com/product.html "商业使用授权")<br/>
 `二次分发包括但不限于：将赤龙ERP或客户化的版本销售给其他客户或通过网络渠道发布并获得收益`
 
-#### 生态板
+#### 生态版
 - 会员制与服务：赤龙ERP生态版提供会员制的服务并收取必要的服务费。[了解更多](https://www.redragon-erp.com/product.html "赤龙ERP会员")
 - 软件区域代理：赤龙ERP生态版招募区域代理，代理商有权代理我们的软件，并通过实施或客户化获利。[了解更多](https://www.redragon-erp.com/partner.html "区域软件代理")
 
@@ -158,29 +158,6 @@
 ![赤龙ERP](https://www.redragon-erp.com/images/9.jpg "赤龙ERP")
 
 ------------
-
-## 产品展示
-
-![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/1.jpg "赤龙ERP")
-
-------------
-
-![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/2.jpg "赤龙ERP")
-
-------------
-
-![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/3.jpg "赤龙ERP")
-
-------------
-
-![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/4.jpg "赤龙ERP")
-
-------------
-
-![赤龙ERP](https://raw.githubusercontent.com/redragon1985/redragon-erp/master/docs/images/5.jpg "赤龙ERP")
-
-------------
-
 
 ## 技术与平台
 

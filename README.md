@@ -52,9 +52,9 @@
 
 # 演示地址
 
-#####:fa-desktop: 生态版：&nbsp;&nbsp;[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
+:fa-desktop: 生态版：&nbsp;&nbsp;[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
 
-#####:fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
+:fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
 
 [:fa-hand-o-right: 点击自助申请账号](https://www.redragon-erp.com/account.html "https://www.redragon-erp.com/account.html")
 

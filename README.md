@@ -2,22 +2,22 @@
 ###### ------企业变革从【赤龙ERP】开始
 
 
-### :fa-question-circle:何须高价
-&nbsp;&nbsp;:tw-31-20e3: :fa-ban: ERP的软件价格太高？NO！
+### :fa-question-circle: 何须高价
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的软件价格太高？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 让所有小微企业都用得起ERP**<br/><br/>
 
-&nbsp;&nbsp;:tw-32-20e3: :fa-ban: ERP的升级维护太贵？NO！
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的升级维护太贵？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 跟着我们一起升级与迭代，您的管理提升就是我们的服务**
 
-### :fa-question-circle:何须复杂
-&nbsp;&nbsp;:tw-33-20e3: :fa-ban: ERP的使用门槛太高？不会用？弄不懂？NO！
+### :fa-question-circle: 何须复杂
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的使用门槛太高？不会用？弄不懂？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 唯一的主线流程设计，让使用变得更容易**<br/><br/>
 
-&nbsp;&nbsp;:tw-34-20e3: :fa-ban: ERP的功能越多越好？NO！
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的功能越多越好？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 从近十款优秀软件梳理出最合理的设计思路，简约而不简单**
 
-### :fa-question-circle:何须定制
-&nbsp;&nbsp;:tw-35-20e3: :fa-ban: ERP需要根据企业的特色定制？NO！
+### :fa-question-circle: 何须定制
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP需要根据企业的特色定制？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 采用服务于几百家500强企业的ERP管理理念，真正提升您企业管理流程**
 
 # 赤龙简介
@@ -51,7 +51,10 @@
 #### :fa-diamond: 我们的愿景是变革中国企业信息化现状。【改变从现在开始】--赤龙ERP
 
 # 演示地址
-生态版：[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
+
+#####:fa-desktop: 生态版：&nbsp;&nbsp;[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
+
+#####:fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
 
 [:fa-hand-o-right: 点击自助申请账号](https://www.redragon-erp.com/account.html "https://www.redragon-erp.com/account.html")
 

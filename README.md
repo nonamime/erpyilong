@@ -50,6 +50,14 @@
 
 #### :fa-diamond: 我们的愿景是变革中国企业信息化现状。【改变从现在开始】--赤龙ERP
 
+# 商业合作
+
+**软件代理**：赤龙ERP生态版招募区域代理，愿与您一起合作共赢。[了解更多](https://www.redragon-erp.com/partner.html "区域软件代理")
+
+:fa-wechat:`如需合作，加微信详询`
+
+![赤龙ERP开发者](http://www.redragon-erp.com/images/redragonBussiness.png "赤龙ERP商业合作")
+
 # 演示地址
 
 :fa-desktop: 生态版：&nbsp;&nbsp;[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
@@ -82,6 +90,9 @@
 #### - 付款/收款单管理
 ###### 完成与发票的核销，实现业务流程的闭环
 
+#### - 费用报销
+###### 借款、报销、还款多维度实现员工费用支出
+
 #### - 子分类账
 ###### 自动的会计分录，实现业务数据与财务数据的无缝连接
 
@@ -103,7 +114,7 @@
 #### - 单点登录
 ###### 集成成熟的SSO解决方案，保证登陆安全和高效
 
-## 商业合作
+## 产品与服务
 
 #### 社区版
 - 免费的学习与使用：赤龙ERP社区版允许个人学习和企业内部使用，并完全免费。

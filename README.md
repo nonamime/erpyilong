@@ -2,22 +2,22 @@
 ###### ------企业变革从【赤龙ERP】开始
 
 
-### :fa-question-circle:何须高价
-&nbsp;&nbsp;:tw-31-20e3: :fa-ban: ERP的软件价格太高？NO！
+### :fa-question-circle: 何须高价
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的软件价格太高？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 让所有小微企业都用得起ERP**<br/><br/>
 
-&nbsp;&nbsp;:tw-32-20e3: :fa-ban: ERP的升级维护太贵？NO！
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的升级维护太贵？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 跟着我们一起升级与迭代，您的管理提升就是我们的服务**
 
-### :fa-question-circle:何须复杂
-&nbsp;&nbsp;:tw-33-20e3: :fa-ban: ERP的使用门槛太高？不会用？弄不懂？NO！
+### :fa-question-circle: 何须复杂
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的使用门槛太高？不会用？弄不懂？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 唯一的主线流程设计，让使用变得更容易**<br/><br/>
 
-&nbsp;&nbsp;:tw-34-20e3: :fa-ban: ERP的功能越多越好？NO！
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的功能越多越好？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 从近十款优秀软件梳理出最合理的设计思路，简约而不简单**
 
-### :fa-question-circle:何须定制
-&nbsp;&nbsp;:tw-35-20e3: :fa-ban: ERP需要根据企业的特色定制？NO！
+### :fa-question-circle: 何须定制
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP需要根据企业的特色定制？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 采用服务于几百家500强企业的ERP管理理念，真正提升您企业管理流程**
 
 # 赤龙简介
@@ -50,8 +50,19 @@
 
 #### :fa-diamond: 我们的愿景是变革中国企业信息化现状。【改变从现在开始】--赤龙ERP
 
+# 商业合作
+
+**软件代理**：赤龙ERP生态版招募区域代理，愿与您一起合作共赢。[了解更多](https://www.redragon-erp.com/partner.html "区域软件代理")
+
+:fa-wechat:`如需合作，加微信详询`
+
+![赤龙ERP开发者](http://www.redragon-erp.com/images/redragonBussiness.png "赤龙ERP商业合作")
+
 # 演示地址
-生态版：[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
+
+:fa-desktop: 生态版：&nbsp;&nbsp;[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
+
+:fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
 
 [:fa-hand-o-right: 点击自助申请账号](https://www.redragon-erp.com/account.html "https://www.redragon-erp.com/account.html")
 
@@ -70,11 +81,17 @@
 #### - 入库/出库管理
 ###### 与订单集成，实现对库存的实时管理，以及仓库的盘点
 
+#### - 生产制造管理
+###### 通过BOM、MPS、MRP实现计划生成和订单的自动化集成管控
+
 #### - 发票管理
 ###### 完成应付与应收开票，与订单、出入库实现三单匹配
 
 #### - 付款/收款单管理
 ###### 完成与发票的核销，实现业务流程的闭环
+
+#### - 费用报销
+###### 借款、报销、还款多维度实现员工费用支出
 
 #### - 子分类账
 ###### 自动的会计分录，实现业务数据与财务数据的无缝连接
@@ -97,7 +114,7 @@
 #### - 单点登录
 ###### 集成成熟的SSO解决方案，保证登陆安全和高效
 
-## 商业合作
+## 产品与服务
 
 #### 社区版
 - 免费的学习与使用：赤龙ERP社区版允许个人学习和企业内部使用，并完全免费。
@@ -218,7 +235,7 @@
 2. 优化各个模块的功能
 3. 增加变更版本记录与查看功能
 
-###### 2020年11月 v0.9.5（开发中）
+###### 2020年11月 v0.9.5（已上线）
 
 1. 增加采购、销售协议模块
 2. 增加采购、销售订单类型，并与协议联动
@@ -229,17 +246,23 @@
 7. 合并处理预付款、预收款、借项通知单、贷项通知单的收付款功能
 8. 增加收付款冲销功能
 
-###### 2020年11月 v1.1（计划中）
+###### 2020年11月 v1.0（已上线）
 
 1. 增加MPS主生产计划功能
 2. 增加MRP物料需求计划功能
 3. 增加BOM物料清单功能
 
-###### 2020年12月 v1.2（计划中）
+###### 2020年12月 v1.1（计划中）
 
 1. 增加费用报销模块
 2. 增加借款模块
 3. 实现费用报销、借款与发票的无缝集成
+
+###### 2021年1月 v1.2（计划中）
+
+1. 增加财务基础数据管理
+2. 增加日记账管理功能
+3. 增加总账管理功能
 
 ## 交流与分享
 

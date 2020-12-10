@@ -46,7 +46,7 @@ $(document).ready(function(){
 				<center><img src="http://www.redragon-erp.com/images/redragon.png" width="150" height="150" alt="赤龙ERP沟通群"/></center>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-white" data-dismiss="modal">再想想</button>
+				<button type="button" class="btn btn-white btn-notcontrol" data-dismiss="modal">再想想</button>
 				<%-- 
 				<button type="button" class="btn btn-danger" id="gitstarButton1" style="font-size: 16px; font-weight: bold;"><i class="fa fa-chevron-circle-right"></i> 去点星</button>
 				--%>

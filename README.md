@@ -1,6 +1,7 @@
 # 改变从现在开始
 ###### 企业变革从【赤龙ERP】开始
 
+:fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
 
 ### :fa-question-circle: 何须高价
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的软件价格太高？NO！

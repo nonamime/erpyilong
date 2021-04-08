@@ -1,5 +1,6 @@
-# 改变从现在开始
-###### 企业变革从【赤龙ERP】开始
+# 企业变革从【赤龙ERP】开始
+
+:fa-jsfiddle:` 赤龙ERP生态版v1.5上线`
 
 :fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
 

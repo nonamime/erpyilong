@@ -16,23 +16,25 @@
 
 :fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
 
-### :fa-question-circle: 何须高价
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的软件价格太高？NO！
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 让所有小微企业都用得起ERP**<br/><br/>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的升级维护太贵？NO！
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 跟着我们一起升级与迭代，您的管理提升就是我们的服务**
+|  ERP的问题与痛点  | 赤龙ERP优势何在 |
+| ------------ | ------------ |
+|  ERP中低端产品质量良莠不齐  | :tw-1f6a9: 赤龙ERP只做最专业的ERP，所匹配市场无出其右者 |
+|  功能的堆砌根本不是ERP系统 |  :tw-1f6a9: ERP各功能模块间的背后逻辑、流程关系及相互约束才是ERP的精髓，也是我们的核心优势 |
+|  引入ERP不仅仅是为了从无到有  | :tw-1f6a9: 上线ERP的目的一定是管理方式和管理流程的提升，拥有专业ERP才是企业的福音 |
+
+
+### :fa-question-circle: 何须高价
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的软件或维护费用太高？NO！
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 让所有小微企业都用得起ERP**<br/><br/>
 
 ### :fa-question-circle: 何须复杂
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的使用门槛太高？不会用？弄不懂？NO！
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 唯一的主线流程设计，让使用变得更容易**<br/><br/>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的功能越多越好？NO！
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 从近十款优秀软件梳理出最合理的设计思路，简约而不简单**
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 唯一的主线流程设计，让操作变得更简单**<br/><br/>
 
 ### :fa-question-circle: 何须定制
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP需要根据企业的特色定制？NO！
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 采用服务于几百家500强企业的ERP管理理念，真正提升您企业管理流程**
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 采用服务于500强企业的ERP理念，真正提升您企业管理流程**
 
 # 团队招募
 
@@ -56,8 +58,6 @@
 :fa-exclamation-triangle:`我们旨在打造一个组织或社区，让每个人可以用自己的专业做自己想做的事情，并获得可能的收益`
 
 # 赤龙简介
-
-###  【赤龙ERP】做开源ERP中的“领跑者”
 
 #### 社区版：
 

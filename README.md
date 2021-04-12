@@ -1,8 +1,10 @@
 <p align="center">
-<img alt="logo" src="http://www.redragon-erp.com/images/redragon-logo.png" width="150" height="150">
-
+<img alt="logo" src="http://www.redragon-erp.com/images/redragon-logo.png" width="120" height="120">
+</p>
+<p align="center">
 <img  src="https://img.shields.io/badge/Release-v0.9.1-brightgreen.svg"> <img  src="https://img.shields.io/badge/JDK-1.8-important.svg"> <img  src="https://img.shields.io/badge/MySQL-8.0-important.svg"> <img  src="https://img.shields.io/badge/Redis-5.0-important.svg"> <img  src="https://img.shields.io/badge/SpringBoot-2.3-blue.svg"> <img  src="https://img.shields.io/badge/License-GPL2.0-lightgrey.svg">
-
+</p>
+<p align="center">
 <img  src="https://img.shields.io/badge/Copyright-赤龙ERP/redragon-blueviolet.svg"> <img  src="https://img.shields.io/badge/生态版-v1.5-blueviolet.svg">
 </p>
 

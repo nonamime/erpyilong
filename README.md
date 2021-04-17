@@ -24,7 +24,7 @@
 |  引入ERP不仅仅是为了从无到有  | :tw-1f6a9: 上线ERP的目的一定是管理方式和管理流程的提升，拥有专业ERP才是企业的福音 |
 
 
-#### :fa-question-circle: 何须高价
+### :fa-question-circle: 何须高价
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的软件或维护费用太高？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 让所有小微企业都用得起ERP**<br/><br/>
 

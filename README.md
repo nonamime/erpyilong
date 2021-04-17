@@ -24,15 +24,15 @@
 |  引入ERP不仅仅是为了从无到有  | :tw-1f6a9: 上线ERP的目的一定是管理方式和管理流程的提升，拥有专业ERP才是企业的福音 |
 
 
-### :fa-question-circle: 何须高价
+**:fa-question-circle: 何须高价**<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的软件或维护费用太高？NO！
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 让所有小微企业都用得起ERP**<br/><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 让所有小微企业都用得起ERP**<br/>
 
-### :fa-question-circle: 何须复杂
+**:fa-question-circle: 何须复杂**<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP的使用门槛太高？不会用？弄不懂？NO！
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 唯一的主线流程设计，让操作变得更简单**<br/><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-up: 唯一的主线流程设计，让操作变得更简单**<br/>
 
-### :fa-question-circle: 何须定制
+**:fa-question-circle: 何须定制**<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP需要根据企业的特色定制？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 采用服务于500强企业的ERP理念，真正提升您企业管理流程**
 
@@ -40,14 +40,14 @@
 
 如果你有一技之长，并有一定的时间，愿意与我们一起打造一套数字化服务平台，并作出自己的贡献，我们愿意与你一起创业共赢！
 
-#### 基本要求：
+##### 基本要求：
 
     （1）有专业技能的个人
     （2）坚持、诚信、有梦想
     （3）想和志同道合的人，做点有意义的事
     （4）有业余时间、有执行力
 
-#### 技能要求：
+##### 技能要求：
 
     （1）我可以承担一个角色：实施、二开、营销
     （2）我可以找到一些资源：找到客户或潜在客户
@@ -59,13 +59,13 @@
 
 # 赤龙简介
 
-#### 社区版：
+###### 社区版：
 
     （1）软件永久免费、持续迭代
     （2）实现主流程的业务和财务闭环
     （3）完备的文档，易于部署和二次开发
 
-#### 生态版：
+###### 生态版：
 
     （1）软件将持续发布生态产品簇（EHR、CRM、WMS、工作流等）
     （2）除主流程外，针对业务完整的分支流程和逆流程

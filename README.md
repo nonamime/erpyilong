@@ -2,17 +2,17 @@
 <img alt="logo" src="http://www.redragon-erp.com/images/redragon-logo.png" width="120" height="120">
 </p>
 <p align="center">
-<img  src="https://img.shields.io/badge/Release-v0.9.1-brightgreen.svg"> <img  src="https://img.shields.io/badge/JDK-1.8-important.svg"> <img  src="https://img.shields.io/badge/MySQL-8.0-important.svg"> <img  src="https://img.shields.io/badge/Redis-5.0-important.svg"> <img  src="https://img.shields.io/badge/SpringBoot-2.3-blue.svg"> <img  src="https://img.shields.io/badge/License-GPL2.0-lightgrey.svg">
+<img  src="https://img.shields.io/badge/Release-v1.0-brightgreen.svg"> <img  src="https://img.shields.io/badge/JDK-1.8-important.svg"> <img  src="https://img.shields.io/badge/MySQL-8.0-important.svg"> <img  src="https://img.shields.io/badge/Redis-5.0-important.svg"> <img  src="https://img.shields.io/badge/SpringBoot-2.3-blue.svg"> <img  src="https://img.shields.io/badge/License-GPL2.0-lightgrey.svg">
 </p>
 <p align="center">
-<img  src="https://img.shields.io/badge/Copyright-赤龙ERP/redragon-blueviolet.svg"> <img  src="https://img.shields.io/badge/生态版-v1.5-blueviolet.svg">
+<img  src="https://img.shields.io/badge/Copyright-赤龙ERP/redragon-blueviolet.svg"> <img  src="https://img.shields.io/badge/生态版-v1.6-blueviolet.svg">
 </p>
 
 ---
 
 # 中国开源ERP“领跑者”
 
-:fa-jsfiddle:` 赤龙ERP生态版v1.5上线`
+:fa-jsfiddle:` 赤龙ERP生态版v1.6上线`
 
 :fa-home: 赤龙官网：[https://www.redragon-erp.com](https://www.redragon-erp.com "https://www.redragon-erp.com")
 
@@ -36,27 +36,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:fa-ban: ERP需要根据企业的特色定制？NO！
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**:fa-thumbs-o-up: 采用服务于500强企业的ERP理念，真正提升您企业管理流程**
 
-# 团队招募
-
-如果你有一技之长，并有一定的时间，愿意与我们一起打造一套数字化服务平台，并作出自己的贡献，我们愿意与你一起创业共赢！
-
-**基本要求：**
-
-    （1）有专业技能的个人
-    （2）坚持、诚信、有梦想
-    （3）想和志同道合的人，做点有意义的事
-    （4）有业余时间、有执行力
-
-**技能要求：**
-
-    （1）我可以承担一个角色：实施、二开、营销
-    （2）我可以找到一些资源：找到客户或潜在客户
-    （3）我可以独立开发功能模块
-    （4）我的专业可以做更多事。。。
-
-
-:fa-exclamation-triangle:`我们旨在打造一个组织或社区，让每个人可以用自己的专业做自己想做的事情，并获得可能的收益`
-
 # 赤龙简介
 
 **社区版：**
@@ -67,7 +46,7 @@
 
 **生态版：**
 
-    （1）软件将持续发布生态产品簇
+    （1）软件将持续发布生态产品簇（EHR、CRM、WMS、工作流等）
     （2）除主流程外，针对业务完整的分支流程和逆流程
     （3）精确的财务业务一体化实现
     （4）快速的应用部署服务、便捷的客户化指导、完备的社群咨询
@@ -93,6 +72,26 @@
 
 ![赤龙ERP开发者](http://www.redragon-erp.com/images/redragonBussiness.png "赤龙ERP商业合作")
 
+# 团队招募
+
+如果你有一技之长，并有一定的时间，愿意与我们一起打造一套数字化服务平台，并作出自己的贡献，我们愿意与你一起创业共赢！
+
+**基本要求：**
+
+    （1）有专业技能的个人
+    （2）坚持、诚信、有梦想
+    （3）想和志同道合的人，做点有意义的事
+    （4）有业余时间、有执行力
+
+**技能要求：**
+
+    （1）我可以承担一个角色：实施、二开、营销
+    （2）我可以找到一些资源：找到客户或潜在客户
+    （3）我可以独立开发功能模块
+    （4）我的专业可以做更多事。。。
+
+:fa-exclamation-triangle:`我们旨在打造一个组织或社区，让每个人可以用自己的专业做自己想做的事情，并获得可能的收益`
+
 # 演示地址
 
 :fa-desktop: 生态版：&nbsp;&nbsp;[https://www.redragon-erp.com/erp](https://www.redragon-erp.com/erp "https://www.redragon-erp.com/erp")
@@ -117,13 +116,13 @@
 |  MPS、MPR、BOM、资源、工作中心、工艺路线  |  生产任务、领料退料、生产工序、生产成本、成品入库  |  单点登录、数据隔离、组织岗位、精细授权  |
 |  **应收/应付**  |  **总账模块**  |  **财务主数据**  |
 |  发票、红字发票、预付款、预收款、付款单、收款单、费用报销  |  自动凭证、日记账、结账、财务报表、财务业务一体化  |  账套、会计科目结构、会计日历、成本中心  |
-|  **工作流**  |  **自定义系统**  |  **其他功能**  |
-|  多节点、多分支、跨组织、可配置、记录审批历史  |  可配置数据字典、自定义系统参数、自定义字段、自定义编码  |  通知与预警、导出数据、工具栏、单据变更  |
+|  **工作流**  |  **自定义系统**  |  **资产管理**  |
+|  多节点、多分支、跨组织、可配置、记录审批历史  |  可配置数据字典、自定义系统参数、自定义字段、自定义编码  |  资产类别、资产台账、计提折旧、报废  |
+|  **其他功能**  |   &nbsp;  |   &nbsp;  |
+|  通知与预警、导出数据、工具栏、单据变更  |  &nbsp;  |   &nbsp;  |
 
 
 # 产品与服务
-
-<br/>
 
 **社区版**
 - 免费的学习与使用：赤龙ERP社区版允许个人学习和企业内部使用，并完全免费。
@@ -309,7 +308,14 @@
 1. 开发利润表
 2. 开发现金流量表
 3. 实现模拟对账
-4. 修改总账模块BUG 
+4. 修改总账模块BUG
+
+**赤龙ERP生态版 v1.6（已上线）**
+
+1. 资产类别维护
+2. 资产台账管理
+3. 资产计提折旧
+4. 资产报废
 
 # 交流与分享
 

@@ -5,10 +5,10 @@
 <img  src="https://img.shields.io/badge/Release-v1.0-brightgreen.svg"> <img  src="https://img.shields.io/badge/JDK-1.8-important.svg"> <img  src="https://img.shields.io/badge/MySQL-8.0-important.svg"> <img  src="https://img.shields.io/badge/Redis-5.0-important.svg"> <img  src="https://img.shields.io/badge/SpringBoot-2.3-blue.svg"> <img  src="https://img.shields.io/badge/License-GPL2.0-lightgrey.svg">
 </p>
 <p align="center">
-<img  src="https://img.shields.io/badge/Copyright-赤龙ERP/redragon-blueviolet.svg"> <img  src="https://img.shields.io/badge/生态版-v1.6-blueviolet.svg">
+<img  src="https://img.shields.io/badge/Copyright-赤龙ERP/redragon-60569f.svg"> <img  src="https://img.shields.io/badge/生态版-v1.8-60569f.svg">
 </p>
 <p align="center">
-<img  src="https://img.shields.io/badge/生态产品-CRM系统-f44e91.svg"> <img  src="https://img.shields.io/badge/生态产品-项目管理系统-f44e91.svg">
+<img  src="https://img.shields.io/badge/生态产品上线-CRM系统-f44e91.svg"> <img  src="https://img.shields.io/badge/生态产品上线-项目管理系统-f44e91.svg">
 </p>
 ---
 
